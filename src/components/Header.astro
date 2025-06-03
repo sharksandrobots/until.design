@@ -1,0 +1,226 @@
+<header class="header">
+  <div class="header-content">
+    <a href="/" class="logo">
+      <img
+        src="/mb-icon.png"
+        alt="Mike Bowser"
+        width={64}
+        height={64}
+        class="light-icon"
+      />
+      <img
+        src="/mb-icon-dark.png"
+        alt="Mike Bowser"
+        width={64}
+        height={64}
+        class="dark-icon"
+      />
+      <span class="name">Mike Bowser</span>
+    </a>
+    <div class="nav-group">
+      <nav class="nav">
+        <a href="/work" class="nav-link">Work</a>
+        <a href="/about" class="nav-link">About</a>
+        <a href="/resume" class="nav-link">Resume</a>
+        <a href="/essays" class="nav-link">Essays</a>
+      </nav>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+    </div>
+    <button id="menu-toggle" class="menu-toggle" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<style>
+  .header {
+    width: 100%;
+    padding: var(--space-4) 0;
+    background-color: var(--colors-surface-primary);
+    border-bottom: 1px solid var(--colors-border-subtle);
+  }
+
+  .header-content {
+    width: 90vw;
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    text-decoration: none;
+    color: var(--colors-text-primary);
+  }
+
+  .name {
+    font-size: var(--fs-base);
+    font-weight: 500;
+  }
+
+  .nav-group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .nav {
+    display: flex;
+    gap: var(--space-4);
+  }
+
+  .nav-link {
+    color: var(--colors-text-secondary);
+    text-decoration: none;
+    font-size: var(--fs-base);
+    transition: color 0.2s ease;
+  }
+
+  .nav-link:hover {
+    color: var(--colors-text-primary);
+  }
+
+  .theme-toggle {
+    background: none;
+    border: none;
+    padding: var(--space-1);
+    cursor: pointer;
+    color: var(--colors-text-secondary);
+    transition: color 0.2s ease;
+  }
+
+  .theme-toggle:hover {
+    color: var(--colors-text-primary);
+  }
+
+  /* Default state (light mode) */
+  .sun-icon {
+    display: block;
+  }
+
+  .moon-icon {
+    display: none;
+  }
+
+  /* Dark mode state */
+  html[data-theme="dark"] .sun-icon {
+    display: none;
+  }
+
+  html[data-theme="dark"] .moon-icon {
+    display: block;
+  }
+
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    padding: var(--space-1);
+    cursor: pointer;
+  }
+
+  .menu-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: var(--colors-text-secondary);
+    margin: 4px 0;
+    transition: background-color 0.2s ease;
+  }
+
+  .menu-toggle:hover span {
+    background-color: var(--colors-text-primary);
+  }
+
+  /* Default state (light mode) */
+  .light-icon {
+    display: block;
+  }
+
+  .dark-icon {
+    display: none;
+  }
+
+  /* Dark mode state */
+  html[data-theme="dark"] .light-icon {
+    display: none;
+  }
+
+  html[data-theme="dark"] .dark-icon {
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    .nav-group {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--colors-surface-primary);
+      padding: var(--space-4);
+      flex-direction: column;
+      justify-content: center;
+      z-index: 100;
+    }
+
+    .nav-group.active {
+      display: flex;
+    }
+
+    .nav {
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .menu-toggle {
+      display: block;
+      z-index: 101;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+  }
+</style>
+
+<script>
+  const menuToggle = document.getElementById('menu-toggle');
+  const navGroup = document.querySelector('.nav-group');
+
+  menuToggle?.addEventListener('click', () => {
+    menuToggle.classList.toggle('active');
+    navGroup?.classList.toggle('active');
+  });
+</script> 

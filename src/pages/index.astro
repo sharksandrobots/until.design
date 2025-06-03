@@ -1,41 +1,282 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<title>UNTIL: Portfolio site</title>
-		<style>
-			body {
-				margin: 0;
-				padding: 0;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				min-height: 100vh;
-				font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-				background-color: #f5f5f5;
-			}
-			.message {
-				font-size: 2rem;
-				color: #333;
-				text-align: center;
-				padding: 2rem;
-				background: white;
-				border-radius: 8px;
-				box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-			}
-		</style>
-	</head>
-	<body>
-		<!--<div class="message">
-			Portfolio update in progress
-		</div>-->
-	</body>
-</html>
+<Layout title="Mike Bowser - UX/Product Designer">
+	<main class="home">
+		<section class="content">
+			<div class="intro">
+				<h1 class="intro-title">Coming Soon</h1>
+				<p class="intro-text">This site is currently under construction. Check back soon for updates.</p>
+			</div>
+		</section>
+
+		{/* Temporarily commented out until site is ready
+		<section class="content">
+			<h2 class="section-header">Featured Case Studies</h2>
+				<article class="case-study">
+					<div class="image-block">
+						<img src="/img/example-1.jpg" alt="Case Study 1" />
+					</div>
+					<div class="content-block">
+						<h5 class="eyebrow">Web Design</h5>
+						<h3 class="headline">Designing a Better Way to Manage Projects</h3>
+						<p class="description">A comprehensive case study on how we redesigned the project management experience for a leading software company.</p>
+					</div>
+				</article>
+
+				<article class="case-study">
+					<div class="image-block">
+						<img src="/img/example-2.jpg" alt="Case Study 2" />
+					</div>
+					<div class="content-block">
+						<h5 class="eyebrow">Web Design</h5>
+						<h3 class="headline">Understanding User Needs Through Research</h3>
+						<p class="description">How we used research to uncover key insights that led to a successful product redesign.</p>
+					</div>
+				</article>
+
+				<article class="case-study">
+					<div class="image-block">
+						<img src="/img/example-1.jpg" alt="Case Study 3" />
+					</div>
+					<div class="content-block">
+						<h5 class="eyebrow">Web Design</h5>
+						<h3 class="headline">Building a Scalable Design System</h3>
+						<p class="description">The process of creating and implementing a design system that scales with the product.</p>
+					</div>
+				</article>
+		</section>
+
+		<section class="content">
+			<h2 class="section-header">Featured Projects</h2>
+			<div class="projects-grid">
+				<article class="project">
+					<div class="image-block">
+						<img src="/img/example-1.jpg" alt="Project 1" />
+					</div>
+					<div class="content-block">
+						<h5 class="eyebrow">Web Design</h5>
+						<h3 class="headline">Modern E-commerce Experience</h3>
+						<p class="description">A fresh take on online shopping that puts the focus on the products.</p>
+					</div>
+				</article>
+
+				<article class="project">
+					<div class="image-block">
+						<img src="/img/example-1.jpg" alt="Project 2" />
+					</div>
+					<div class="content-block">
+						<h5 class="eyebrow">Web Design</h5>
+						<h3 class="headline">Fitness Tracking Made Simple</h3>
+						<p class="description">An intuitive mobile app that helps users track their fitness journey.</p>
+					</div>
+				</article>
+
+				<article class="project">
+					<div class="image-block">
+						<img src="/img/example-1.jpg" alt="Project 3" />
+					</div>
+					<div class="content-block">
+						<h5 class="eyebrow">Web Design</h5>
+						<h3 class="headline">Rebranding a Tech Startup</h3>
+						<p class="description">Creating a bold new identity for an innovative tech company.</p>
+					</div>
+				</article>
+
+				<article class="project">
+					<div class="image-block">
+						<img src="/img/example-1.jpg" alt="Project 4" />
+					</div>
+					<div class="content-block">
+						<h5 class="eyebrow">Web Design</h5>
+						<h3 class="headline">Dashboard Redesign</h3>
+						<p class="description">Simplifying complex data visualization for better user understanding.</p>
+					</div>
+				</article>
+
+				<article class="project">
+					<div class="image-block">
+						<img src="/img/example-1.jpg" alt="Project 5" />
+					</div>
+					<div class="content-block">
+						<h5 class="eyebrow">Web Design</h5>
+						<h3 class="headline">Streamlined Checkout Flow</h3>
+						<p class="description">Reducing friction in the checkout process to increase conversions.</p>
+					</div>
+				</article>
+
+				<article class="project">
+					<div class="image-block">
+						<img src="/img/example-1.jpg" alt="Project 6" />
+					</div>
+					<div class="content-block">
+						<h5 class="eyebrow">Web Design</h5>
+						<h3 class="headline">Onboarding Experience</h3>
+						<p class="description">Creating a welcoming first-time user experience that drives engagement.</p>
+					</div>
+				</article>
+			</div>
+		</section>
+		*/}
+	</main>
+</Layout>
+
+<style>
+	.home {
+		width: 100%;
+		padding: var(--space-4) 0;
+	}
+
+	.content {
+		width: 80vw;
+		max-width: 1440px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: repeat(6, 1fr);
+		gap: var(--space-4);
+		padding: var(--space-4) 0;
+	}
+
+	.intro {
+		grid-column: 1 / span 4;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-4);
+		margin-bottom: var(--space-8);
+	}
+
+	.intro-title {
+		font-size: var(--h1);
+		font-weight: 700;
+		line-height: 1.2;
+		color: var(--colors-text-primary);
+	}
+
+	.intro-text {
+		font-size: var(--fs-base);
+		line-height: 1.5;
+		color: var(--colors-text-secondary);
+	}
+
+	.section-header {
+		grid-column: 1 / -1;
+		font-size: var(--h2);
+		font-weight: 600;
+		color: var(--colors-text-primary);
+		margin-bottom: var(--space-4);
+	}
+
+	/* Featured Case Studies */
+	.case-study {
+		grid-column: 1 / -1;
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		gap: var(--space-4);
+		margin-bottom: var(--space-8);
+	}
+
+	.case-study .image-block {
+		grid-column: 1 / -1;
+		width: 100%;
+		max-height: 40rem;
+		background-color: var(--colors-surface-secondary);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.case-study .image-block img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.case-study .content-block {
+		grid-column: 1 / span 3;
+	}
+
+	.headline {
+		font-size: var(--h3);
+		font-weight: 600;
+		color: var(--colors-text-primary);
+	}
+
+	.eyebrow {
+		font-size: var(--fs-sm);
+		font-weight: 500;
+		color: var(--colors-text-secondary);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+
+	.description {
+		font-size: var(--fs-base);
+		color: var(--colors-text-secondary);
+		line-height: 1.5;
+	}
+
+	/* Featured Projects */
+	.projects-grid {
+		grid-column: 1 / -1;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: var(--space-4);
+		width: 100%;
+	}
+
+	.project {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-4);
+		width: 100%;
+		max-width: 100%;
+		margin-bottom: var(--space-8);
+	}
+
+	.project .image-block {
+		width: 100%;
+		aspect-ratio: 16/9;
+		background-color: var(--colors-surface-secondary);
+		position: relative;
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+	}
+
+	.project .image-block img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.project .content-block {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+	}
+
+	@media (max-width: 768px) {
+		.content {
+			width: 90vw;
+			gap: var(--space-4);
+		}
+
+		.intro {
+			grid-column: 1 / -1;
+		}
+
+		.intro-title {
+			font-size: var(--fs-xl);
+		}
+
+		.case-study .content-block {
+			grid-column: 1 / -1;
+		}
+
+		.projects-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

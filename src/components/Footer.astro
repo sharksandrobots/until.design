@@ -1,0 +1,113 @@
+<footer class="footer-wrapper">
+	<div class="footer">
+		<div class="footer-content">
+			<p class="footer-intro">Mike Bowser is a designer and design director with over two decades of experience building and leading high-performing design teams across organizations of all sizes. His expertise lies in:</p>
+			
+			<ul class="footer-expertise">
+				<li>Cultivating cross-functional partnerships that bridge design, engineering, and business objectives</li>
+				<li>Crafting intuitive UX solutions and product designs while building scalable design systems</li>
+				<li>Mentoring teams to embrace human-centered design methodologies that deliver business impact</li>
+			</ul>
+			<p class="footer-cta">To discuss projects, roles, or workshops / training, please feel free to reach out.</p>
+            <p class="footer-copyright">© Copyright 2025 Mike Bowser. All rights reserved.</p>
+		</div>
+		
+		<div class="footer-image">
+			<img src="/img/Mike-Bowser-2025.png" alt="Mike Bowser" />
+		</div>
+	</div>
+</footer>
+
+<style>
+	.footer-wrapper {
+		width: 100%;
+		background-color: var(--footer-background);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.footer {
+		width: 80vw;
+		max-width: 1440px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: repeat(6, 1fr);
+		gap: var(--space-4);
+		padding: var(--space-8) 0;
+		position: relative;
+		z-index: 2;
+	}
+
+	.footer-content {
+		grid-column: 1 / span 3;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-4);
+	}
+
+	.footer-intro {
+		font-size: var(--fs-md);
+		line-height: 1.6;
+		color: var(--footer-text);
+	}
+
+	.footer-expertise {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2);
+	}
+
+	.footer-expertise li {
+		font-size: var(--fs-base);
+		line-height: 1.6;
+		color: var(--footer-text);
+		position: relative;
+		padding-left: var(--space-4);
+	}
+
+    .footer-copyright {
+        font-size: var(--fs-sm);
+        line-height: 1.6;
+        color: var(--footer-text-muted);
+        margin-top: var(--space-1);
+    }
+
+	.footer-cta {
+		font-size: var(--fs-base);
+		line-height: 1.6;
+		color: var(--footer-text);
+		margin-top: var(--space-1);
+	}
+
+	.footer-image {
+		grid-column: 5 / span 2;
+		display: flex;
+		align-items: flex-start;
+		justify-content: center;
+	}
+
+	.footer-image img {
+		width: 100%;
+		height: auto;
+		object-fit: contain;
+	}
+
+	@media (max-width: 768px) {
+		.footer {
+			width: 90vw;
+			grid-template-columns: 1fr;
+			gap: var(--space-6);
+		}
+
+		.footer-content {
+			grid-column: 1;
+		}
+
+		.footer-image {
+			grid-column: 1;
+		}
+	}
+</style> 
