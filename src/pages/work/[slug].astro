@@ -7,6 +7,18 @@ export async function getStaticPaths() {
 	const caseStudies = await getCollection('case-studies');
 	const projectSnapshots = await getCollection('project-snapshots');
 	
+	// Redirect case-study and project-snapshot to /work
+	const redirects = [
+		{
+			params: { slug: 'case-study' },
+			redirect: '/work'
+		},
+		{
+			params: { slug: 'project-snapshot' },
+			redirect: '/work'
+		}
+	];
+	
 	const caseStudyPaths = caseStudies.map(caseStudy => ({
 		params: { slug: caseStudy.slug },
 		props: { caseStudy }
@@ -17,7 +29,7 @@ export async function getStaticPaths() {
 		props: { snapshot }
 	}));
 
-	return [...caseStudyPaths, ...projectSnapshotPaths];
+	return [...redirects, ...caseStudyPaths, ...projectSnapshotPaths];
 }
 
 const { caseStudy, snapshot } = Astro.props;
