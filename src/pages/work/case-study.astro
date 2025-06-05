@@ -1,0 +1,120 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import Intro from '../../components/case-study/Intro.astro';
+import LeadImage from '../../components/case-study/LeadImage.astro';
+import Section from '../../components/case-study/Section.astro';
+import SectionLabel from '../../components/case-study/SectionLabel.astro';
+import ImageSection from '../../components/case-study/ImageSection.astro';
+import ImpactGrid from '../../components/case-study/ImpactGrid.astro';
+import NextSection from '../../components/case-study/NextSection.astro';
+import MoreWork from '../../components/case-study/MoreWork.astro';
+
+const { caseStudy } = Astro.props;
+const { data, slug } = caseStudy;
+
+// Get all case studies and project snapshots for More Work section
+const allCaseStudies = await getCollection('case-studies');
+const allProjectSnapshots = await getCollection('project-snapshots');
+
+// Combine and filter out current item
+const moreWorkItems = [
+  ...allCaseStudies
+    .filter(cs => cs.slug !== slug)
+    .map(cs => ({
+      title: cs.data.title,
+      image: cs.data.leadImage.src,
+      href: `/work/${cs.slug}`,
+      type: cs.data.caseType
+    })),
+  ...allProjectSnapshots
+    .map(ps => ({
+      title: ps.data.title,
+      image: ps.data.leadImage.src,
+      href: `/work/${ps.slug}`,
+      type: ps.data.caseType
+    }))
+];
+---
+
+<Layout title={`${data.title} - Mike Bowser`}>
+  <main>
+    <Intro
+      client={data.client}
+      blurb={data.blurb}
+      role={data.role}
+      focus={data.focus}
+      type={data.caseType}
+    />
+
+    <LeadImage
+      src={data.leadImage.src}
+      alt={data.leadImage.alt}
+    />
+
+    <SectionLabel title="Overview" />
+    <Section>
+      <p>{data.overview.summary}</p>
+      <ul>
+        {data.overview.highlights.map((highlight) => (
+          <li>{highlight}</li>
+        ))}
+      </ul>
+    </Section>
+
+    <SectionLabel title="Context" />
+    <Section>
+      <p>{data.context.description}</p>
+      <ul>
+        {data.context.challenges.map((challenge) => (
+          <li>{challenge}</li>
+        ))}
+      </ul>
+    </Section>
+
+    <SectionLabel title="The Work" />
+    {data.work.map((section) => (
+      <>
+        <Section 
+          title={section.sectionTitle}
+          subhead={section.sectionSubhead}
+        >
+          {section.content.split('\n\n').map((paragraph) => (
+            <p class="section-paragraph">{paragraph}</p>
+          ))}
+        </Section>
+        {section.images && <ImageSection images={section.images} />}
+      </>
+    ))}
+
+
+    <SectionLabel title="Impact and Outcomes" />
+    <ImpactGrid items={data.impact} />
+
+    {data.nextCaseStudy && (
+      <NextSection 
+        title={data.nextCaseStudy.title}
+        href={`/work/${data.nextCaseStudy.slug}`}
+      />
+    )}
+
+    <MoreWork items={moreWorkItems} />
+  </main>
+</Layout>
+
+<style>
+  h4 {
+    font-size: var(--fs-lg);
+    color: var(--colors-text-secondary);
+    margin-bottom: var(--space-4);
+  }
+  
+  .section-paragraph {
+    margin-top: var(--space-0);
+    margin-bottom: var(--space-2);
+  }
+  
+  .section-paragraph:last-child {
+    margin-bottom: 0;
+  }
+</style> 

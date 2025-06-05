@@ -1,6 +1,7 @@
 ---
+type: 'content'
 title: "Designing a Better Way to Manage Projects"
-client: "your brother"
+client: "Client number 3"
 blurb: "A comprehensive redesign of project management software that increased team productivity by 40%"
 role: "Design Director"
 focus: "Led the design strategy and user experience design for the core product"
@@ -26,22 +27,25 @@ work:
     sectionSubhead: "Understanding the Problem Space"
     content: "We began with extensive user research, interviewing over 50 project managers and team members across different industries. This helped us identify key pain points and opportunities for improvement."
     images:
-      - src: "/img/research-findings.jpg"
-        alt: "Research findings visualization"
-        caption: "Key insights from user research"
+      - src: "/img/example-1.jpg"
+        alt: "User research findings visualization"
+        caption: "Key insights from user interviews and surveys"
+        layout: "3-3"
+      - src: "/img/example-2.jpg"
+        alt: "User research findings visualization"
+        caption: "Key insights from user interviews and surveys"
         layout: "3-3"
   - sectionTitle: "Design Process"
     sectionSubhead: "Creating a Flexible System"
-    content: |
-      Our design process focused on creating a flexible system that could adapt to different team needs while maintaining consistency and usability. We started with low-fidelity wireframes and gradually increased fidelity as we validated our solutions.
-
-      Throughout the process, we maintained close collaboration with stakeholders and end users. Regular feedback sessions helped us identify pain points early and iterate quickly on potential solutions. This iterative approach allowed us to refine the interface while ensuring it remained intuitive and efficient.
-
-      The final design system we developed was both comprehensive and flexible. It included a robust component library, clear documentation, and guidelines for implementation. This foundation enabled teams to build consistent experiences while maintaining the flexibility needed for different use cases.
+    content: "Our design process focused on creating a flexible system that could adapt to different team needs while maintaining consistency and usability. We started with low-fidelity wireframes and gradually increased fidelity as we validated our solutions."
     images:
-      - src: "/img/design-system.jpg"
-        alt: "Design system components"
-        caption: "Core components of our design system"
+      - src: "/img/example-3.jpg"
+        alt: "Early wireframes of the project management interface"
+        caption: "Initial wireframes exploring different layout options"
+        layout: "2-4"
+      - src: "/img/example-4.jpg"
+        alt: "Refined wireframes with user feedback incorporated"
+        caption: "Refined wireframes incorporating user feedback"
         layout: "2-4"
 impact:
   - heading: "Increased Productivity"
@@ -51,6 +55,8 @@ impact:
   - heading: "User Satisfaction"
     description: "The new system achieved a 95% satisfaction rating, with users particularly praising the intuitive interface and powerful features."
 nextCaseStudy:
-  title: "Redesigning the Customer Experience"
+  title: "Customer Experience Redesign"
   slug: "customer-experience-redesign"
---- 
+---
+
+This is the content of the case study. 

@@ -1,8 +1,7 @@
 /* Font Face Declarations */
 @font-face {
   font-family: 'Aeonik';
-  src: url('/fonts/Aeonik-Regular.woff2') format('woff2'),
-       url('/fonts/Aeonik-Regular.woff') format('woff');
+  src: url('/fonts/AeonikPro-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -10,8 +9,7 @@
 
 @font-face {
   font-family: 'Aeonik';
-  src: url('/fonts/Aeonik-Medium.woff2') format('woff2'),
-       url('/fonts/Aeonik-Medium.woff') format('woff');
+  src: url('/fonts/AeonikPro-Medium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -19,10 +17,17 @@
 
 @font-face {
   font-family: 'Aeonik';
-  src: url('/fonts/Aeonik-Bold.woff2') format('woff2'),
-       url('/fonts/Aeonik-Bold.woff') format('woff');
+  src: url('/fonts/AeonikPro-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/AeonikPro-RegularItalic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
   font-display: swap;
 }
 
