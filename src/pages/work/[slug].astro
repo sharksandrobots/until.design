@@ -3,21 +3,14 @@ import { getCollection } from 'astro:content';
 import CaseStudy from './case-study.astro';
 import ProjectSnapshot from './project-snapshot.astro';
 
+// If we're on case-study or project-snapshot paths, redirect to /work
+if (Astro.params.slug === 'case-study' || Astro.params.slug === 'project-snapshot') {
+	return Astro.redirect('/work');
+}
+
 export async function getStaticPaths() {
 	const caseStudies = await getCollection('case-studies');
 	const projectSnapshots = await getCollection('project-snapshots');
-	
-	// Redirect case-study and project-snapshot to /work
-	const redirects = [
-		{
-			params: { slug: 'case-study' },
-			redirect: '/work'
-		},
-		{
-			params: { slug: 'project-snapshot' },
-			redirect: '/work'
-		}
-	];
 	
 	const caseStudyPaths = caseStudies.map(caseStudy => ({
 		params: { slug: caseStudy.slug },
@@ -29,7 +22,7 @@ export async function getStaticPaths() {
 		props: { snapshot }
 	}));
 
-	return [...redirects, ...caseStudyPaths, ...projectSnapshotPaths];
+	return [...caseStudyPaths, ...projectSnapshotPaths];
 }
 
 const { caseStudy, snapshot } = Astro.props;

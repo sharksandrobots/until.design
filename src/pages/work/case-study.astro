@@ -11,7 +11,10 @@ import NextSection from '../../components/case-study/NextSection.astro';
 import MoreWork from '../../components/case-study/MoreWork.astro';
 
 const { caseStudy } = Astro.props;
-const { data, slug } = caseStudy;
+
+if (!caseStudy) {
+  return Astro.redirect('/work');
+}
 
 // Get all case studies and project snapshots for More Work section
 const allCaseStudies = await getCollection('case-studies');
@@ -20,7 +23,7 @@ const allProjectSnapshots = await getCollection('project-snapshots');
 // Combine and filter out current item
 const moreWorkItems = [
   ...allCaseStudies
-    .filter(cs => cs.slug !== slug)
+    .filter(cs => cs.slug !== caseStudy.slug)
     .map(cs => ({
       title: cs.data.title,
       image: cs.data.leadImage.src,
@@ -37,26 +40,26 @@ const moreWorkItems = [
 ];
 ---
 
-<Layout title={`${data.title} - Mike Bowser`}>
+<Layout title={`${caseStudy.data.title} - Mike Bowser`}>
   <main>
     <Intro
-      client={data.client}
-      blurb={data.blurb}
-      role={data.role}
-      focus={data.focus}
-      type={data.caseType}
+      client={caseStudy.data.client}
+      blurb={caseStudy.data.blurb}
+      role={caseStudy.data.role}
+      focus={caseStudy.data.focus}
+      type={caseStudy.data.caseType}
     />
 
     <LeadImage
-      src={data.leadImage.src}
-      alt={data.leadImage.alt}
+      src={caseStudy.data.leadImage.src}
+      alt={caseStudy.data.leadImage.alt}
     />
 
     <SectionLabel title="Overview" />
     <Section>
-      <p>{data.overview.summary}</p>
+      <p>{caseStudy.data.overview.summary}</p>
       <ul>
-        {data.overview.highlights.map((highlight) => (
+        {caseStudy.data.overview.highlights.map((highlight) => (
           <li>{highlight}</li>
         ))}
       </ul>
@@ -64,16 +67,16 @@ const moreWorkItems = [
 
     <SectionLabel title="Context" />
     <Section>
-      <p>{data.context.description}</p>
+      <p>{caseStudy.data.context.description}</p>
       <ul>
-        {data.context.challenges.map((challenge) => (
+        {caseStudy.data.context.challenges.map((challenge) => (
           <li>{challenge}</li>
         ))}
       </ul>
     </Section>
 
     <SectionLabel title="The Work" />
-    {data.work.map((section) => (
+    {caseStudy.data.work.map((section) => (
       <>
         <Section 
           title={section.sectionTitle}
@@ -87,14 +90,13 @@ const moreWorkItems = [
       </>
     ))}
 
-
     <SectionLabel title="Impact and Outcomes" />
-    <ImpactGrid items={data.impact} />
+    <ImpactGrid items={caseStudy.data.impact} />
 
-    {data.nextCaseStudy && (
+    {caseStudy.data.nextCaseStudy && (
       <NextSection 
-        title={data.nextCaseStudy.title}
-        href={`/work/${data.nextCaseStudy.slug}`}
+        title={caseStudy.data.nextCaseStudy.title}
+        href={`/work/${caseStudy.data.nextCaseStudy.slug}`}
       />
     )}
 

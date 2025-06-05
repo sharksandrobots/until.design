@@ -11,7 +11,10 @@ import NextSection from '../../components/case-study/NextSection.astro';
 import MoreWork from '../../components/case-study/MoreWork.astro';
 
 const { snapshot } = Astro.props;
-const { data, slug } = snapshot;
+
+if (!snapshot) {
+  return Astro.redirect('/work');
+}
 
 // Get all case studies and project snapshots for More Work section
 const allCaseStudies = await getCollection('case-studies');
@@ -27,7 +30,7 @@ const moreWorkItems = [
       type: cs.data.caseType
     })),
   ...allProjectSnapshots
-    .filter(ps => ps.slug !== slug)
+    .filter(ps => ps.slug !== snapshot.slug)
     .map(ps => ({
       title: ps.data.title,
       image: ps.data.leadImage.src,
@@ -37,33 +40,33 @@ const moreWorkItems = [
 ];
 ---
 
-<Layout title={`${data.title} - Mike Bowser`}>
+<Layout title={`${snapshot.data.title} - Mike Bowser`}>
   <main>
     <Intro
-      client={data.client}
-      blurb={data.blurb}
-      role={data.role}
-      focus={data.focus}
-      type={data.caseType}
+      client={snapshot.data.client}
+      blurb={snapshot.data.blurb}
+      role={snapshot.data.role}
+      focus={snapshot.data.focus}
+      type={snapshot.data.caseType}
     />
 
     <LeadImage
-      src={data.leadImage.src}
-      alt={data.leadImage.alt}
+      src={snapshot.data.leadImage.src}
+      alt={snapshot.data.leadImage.alt}
     />
 
     <SectionLabel title="Project Overview" />
     <Section>
-      <p>{data.overview.summary}</p>
+      <p>{snapshot.data.overview.summary}</p>
       <ul>
-        {data.overview.highlights.map((highlight) => (
+        {snapshot.data.overview.highlights.map((highlight) => (
           <li>{highlight}</li>
         ))}
       </ul>
     </Section>
 
     <SectionLabel title="The Work" />
-    {data.work.map((section) => (
+    {snapshot.data.work.map((section) => (
       <>
         <Section 
           title={section.sectionTitle}
@@ -77,14 +80,13 @@ const moreWorkItems = [
       </>
     ))}
 
-
     <SectionLabel title="Impact and Outcomes" />
-    <ImpactGrid items={data.impact} />
+    <ImpactGrid items={snapshot.data.impact} />
 
-    {data.nextCaseStudy && (
+    {snapshot.data.nextCaseStudy && (
       <NextSection 
-        title={data.nextCaseStudy.title}
-        href={`/work/${data.nextCaseStudy.slug}`}
+        title={snapshot.data.nextCaseStudy.title}
+        href={`/work/${snapshot.data.nextCaseStudy.slug}`}
       />
     )}
 
