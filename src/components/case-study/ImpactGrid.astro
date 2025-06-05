@@ -1,0 +1,74 @@
+---
+interface Props {
+  items: Array<{
+    heading: string;
+    description: string;
+  }>;
+}
+
+const { items } = Astro.props;
+---
+
+<section class="impact-section">
+  <div class="impact-section-content">
+    <div class="impact-grid">
+      {items.map((item) => (
+        <div class="impact-item">
+          <h4>{item.heading}</h4>
+          <p>{item.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .impact-section {
+    width: 100%;
+    padding: var(--space-6) 0;
+  }
+
+  .impact-section-content {
+    width: 80vw;
+    max-width: 1440px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--space-4);
+  }
+
+  .impact-grid {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+
+  .impact-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .impact-item h3 {
+    font-size: var(--fs-lg);
+    color: var(--colors-text-primary);
+    margin: 0;
+  }
+
+  .impact-item p {
+    color: var(--colors-text-secondary);
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .impact-section-content {
+      width: 90vw;
+    }
+
+    .impact-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+  }
+</style> 

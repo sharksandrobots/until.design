@@ -1,0 +1,118 @@
+---
+interface Props {
+  client: string;
+  blurb: string;
+  role: string;
+  focus: string;
+  type: 'Case Study' | 'Project Snapshot';
+}
+
+const { client, blurb, role, focus, type } = Astro.props;
+---
+
+<section class="intro">
+  <div class="intro-content">
+    <div class="intro-left">
+      <span class="type">{type}</span>
+      <h2 class="client">{client}</h2>
+      <p class="blurb">{blurb}</p>
+    </div>
+    <div class="intro-right">
+      <div class="role-group">
+        <h3 class="label">Role</h3>
+        <p class="role">{role}</p>
+      </div>
+      <div class="focus-group">
+        <h3 class="label">Focus</h3>
+        <p class="focus">{focus}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .intro {
+    width: 100%;
+    padding: var(--space-8) 0;
+  }
+
+  .intro-content {
+    width: 80vw;
+    max-width: 1440px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--space-4);
+  }
+
+  .intro-left {
+    grid-column: 1 / span 4;
+  }
+
+  .type {
+    display: block;
+    font-size: var(--fs-sm);
+    text-transform: uppercase;
+    color: var(--colors-text-secondary);
+    margin-bottom: var(--space-2);
+    letter-spacing: 0.05em;
+  }
+
+  .client {
+    font-size: var(--h2);
+    font-weight: 600;
+    color: var(--colors-text-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .blurb {
+    font-size: var(--fs-lg);
+    line-height: 1.4;
+    color: var(--colors-text-primary);
+    margin:0;
+  }
+
+  .intro-right {
+    grid-column: 5 / span 2;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .label {
+    font-size: var(--fs-sm);
+    font-weight: 500;
+    color: var(--colors-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-1);
+  }
+
+  .role, .focus {
+    font-size: var(--fs-base);
+    line-height: 1.5;
+    color: var(--colors-text-primary);
+    margin:0;
+
+  }
+
+  @media (max-width: 768px) {
+    .intro-content {
+      width: 90vw;
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+
+    .intro-left, .intro-right {
+      grid-column: 1;
+    }
+
+    .client {
+      font-size: var(--fs-xl);
+    }
+
+    .blurb {
+      font-size: var(--fs-base);
+    }
+  }
+</style> 

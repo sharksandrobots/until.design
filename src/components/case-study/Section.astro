@@ -1,0 +1,92 @@
+---
+interface Props {
+  title?: string;
+  subhead?: string;
+}
+
+const { title, subhead } = Astro.props;
+---
+
+<section class="case-study-section">
+  <div class="section-content">
+    <div class="section-text">
+      {title && <h2 class="section-title">{title}</h2>}
+      {subhead && <h4 class="section-subhead">{subhead}</h4>}
+      <div class="section-body">
+        <slot />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .case-study-section {
+    width: 100%;
+    padding: var(--space-6) 0;
+  }
+
+  .section-content {
+    width: 80vw;
+    max-width: 1440px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--space-4);
+  }
+
+  .section-text {
+    grid-column: 2 / span 3;
+  }
+
+  .section-title {
+    font-size: var(--fs-lg);
+    font-weight: 600;
+    color: var(--colors-text-primary);
+    margin-bottom: var(--space-3);
+  }
+
+  .section-subhead {
+    font-size: var(--fs-md);
+    color: var(--colors-text-primary);
+    margin-bottom: var(--space-1);
+  }
+
+  .section-body {
+    margin-bottom: var(--space-1);
+    line-height: 1.5;
+  }
+
+  .section-body > p {
+    color: var(--colors-text-primary);
+    margin-bottom: var(--space-2) !important;
+  }
+
+  .section-body > p:last-child {
+    margin-bottom: 0 !important;
+  }
+
+  .section-body ul {
+    margin-bottom: var(--space-4);
+    padding-left: var(--space-4);
+  }
+
+  .section-body li {
+    margin-bottom: var(--space-2);
+    line-height: 1.5;
+    color: var(--colors-text-primary);
+  }
+
+  .section-body li:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 768px) {
+    .section-content {
+      width: 90vw;
+    }
+
+    .section-text {
+      grid-column: 1 / -1;
+    }
+  }
+</style> 

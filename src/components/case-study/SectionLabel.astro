@@ -1,0 +1,44 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<div class="section-label-container">
+  <div class="section-label-grid">
+    <h2 class="section-label">{title}</h2>
+  </div>
+</div>
+
+<style>
+  .section-label-container {
+    width: 100%;
+  }
+
+  .section-label-grid {
+    width: 80vw;
+    max-width: 1440px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--space-4);
+  }
+
+  .section-label {
+    grid-column: 1 / -1;
+    font-size: var(--fs-base);
+    text-transform: uppercase;
+    color: var(--colors-text-secondary);
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--colors-border-subtle);
+    margin-top: var(--space-6);
+  }
+
+  @media (max-width: 768px) {
+    .section-label-grid {
+      width: 90vw;
+    }
+  }
+</style> 

@@ -1,0 +1,102 @@
+---
+interface Props {
+  images: Array<{
+    src: string;
+    alt: string;
+    caption: string;
+    layout: '3-3' | '2-4' | '4-2' | 'full' | '5-1' | '1-5' | '2-2-2';
+  }>;
+}
+
+const { images } = Astro.props;
+
+const getGridClass = (layout: string) => {
+  switch (layout) {
+    case '3-3':
+      return 'grid-3-3';
+    case '2-4':
+      return 'grid-2-4';
+    case '4-2':
+      return 'grid-4-2';
+    case 'full':
+      return 'grid-full';
+    case '5-1':
+      return 'grid-5-1';
+    case '1-5':
+      return 'grid-1-5';
+    case '2-2-2':
+      return 'grid-2-2-2';
+    default:
+      return '';
+  }
+};
+---
+
+<div class={`image-grid ${getGridClass(images[0].layout)}`}>
+  {images.map((image) => (
+    <figure class="image-wrapper">
+      <img src={image.src} alt={image.alt} />
+      <figcaption class="caption">{image.caption}</figcaption>
+    </figure>
+  ))}
+</div>
+
+<style>
+  .image-grid {
+    grid-column: 1 / -1;
+    display: grid;
+    gap: var(--space-4);
+    margin: var(--space-8) 0;
+  }
+
+  .image-wrapper {
+    margin: 0;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .caption {
+    font-size: var(--fs-sm);
+    color: var(--colors-text-secondary);
+    margin-top: var(--space-2);
+  }
+
+  /* Layout configurations */
+  .grid-3-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-2-4 {
+    grid-template-columns: 1fr 2fr;
+  }
+
+  .grid-4-2 {
+    grid-template-columns: 2fr 1fr;
+  }
+
+  .grid-full {
+    grid-template-columns: 1fr;
+  }
+
+  .grid-5-1 {
+    grid-template-columns: 5fr 1fr;
+  }
+
+  .grid-1-5 {
+    grid-template-columns: 1fr 5fr;
+  }
+
+  .grid-2-2-2 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    .image-grid {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style> 

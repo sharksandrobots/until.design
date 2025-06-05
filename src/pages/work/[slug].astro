@@ -1,0 +1,142 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+	// This will be populated with actual case studies and projects
+	return [
+		{
+			params: { slug: 'designing-better-project-management' },
+			props: {
+				title: 'Designing a Better Way to Manage Projects',
+				type: 'case-study',
+				eyebrow: 'Web Design',
+				description: 'A comprehensive case study on how we redesigned the project management experience for a leading software company.',
+				image: '/img/example-1.jpg',
+				content: 'Case study content will go here...'
+			}
+		}
+	];
+}
+
+const { title, type, eyebrow, description, image, content } = Astro.props;
+---
+
+<Layout title={`${title} - Mike Bowser`}>
+	<main class="work-detail">
+		<article class="content">
+			<header class="work-header">
+				<div class="work-meta">
+					<h5 class="eyebrow">{eyebrow}</h5>
+					<h1 class="title">{title}</h1>
+					<p class="description">{description}</p>
+				</div>
+				<div class="work-image">
+					<img src={image} alt={title} />
+				</div>
+			</header>
+
+			<div class="work-content">
+				{content}
+			</div>
+		</article>
+	</main>
+</Layout>
+
+<style>
+	.work-detail {
+		width: 100%;
+		padding: var(--space-4) 0;
+	}
+
+	.content {
+		width: 80vw;
+		max-width: 1440px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: repeat(6, 1fr);
+		gap: var(--space-4);
+		padding: var(--space-4) 0;
+	}
+
+	.work-header {
+		grid-column: 1 / -1;
+		display: grid;
+		grid-template-columns: repeat(6, 1fr);
+		gap: var(--space-4);
+		margin-bottom: var(--space-8);
+	}
+
+	.work-meta {
+		grid-column: 1 / span 3;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-4);
+	}
+
+	.eyebrow {
+		font-size: var(--fs-sm);
+		font-weight: 500;
+		color: var(--colors-text-secondary);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+
+	.title {
+		font-size: var(--h1);
+		font-weight: 700;
+		line-height: 1.2;
+		color: var(--colors-text-primary);
+	}
+
+	.description {
+		font-size: var(--fs-base);
+		line-height: 1.5;
+		color: var(--colors-text-secondary);
+	}
+
+	.work-image {
+		grid-column: 4 / span 3;
+		width: 100%;
+		aspect-ratio: 16/9;
+		background-color: var(--colors-surface-secondary);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.work-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.work-content {
+		grid-column: 1 / -1;
+		font-size: var(--fs-base);
+		line-height: 1.6;
+		color: var(--colors-text-primary);
+	}
+
+	@media (max-width: 768px) {
+		.content {
+			width: 90vw;
+			gap: var(--space-4);
+		}
+
+		.work-header {
+			grid-template-columns: 1fr;
+			gap: var(--space-6);
+		}
+
+		.work-meta {
+			grid-column: 1;
+		}
+
+		.work-image {
+			grid-column: 1;
+		}
+
+		.title {
+			font-size: var(--fs-xl);
+		}
+	}
+</style> 

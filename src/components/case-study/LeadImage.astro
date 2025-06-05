@@ -1,0 +1,40 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+}
+
+const { src, alt } = Astro.props;
+---
+
+<section class="lead-image-wrapper">
+  <div class="lead-image-container">
+    <img src={src} alt={alt} />
+  </div>
+</section>
+
+<style>
+  .lead-image-wrapper {
+    width: 100%;
+    background-color: var(--colors-surface-secondary);
+    padding: var(--space-8) 0;
+  }
+
+  .lead-image-container {
+    width: 80vw;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    .lead-image-container {
+      width: 90vw;
+    }
+  }
+</style> 

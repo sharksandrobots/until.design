@@ -1,0 +1,322 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Intro from '../../components/case-study/Intro.astro';
+import LeadImage from '../../components/case-study/LeadImage.astro';
+import Section from '../../components/case-study/Section.astro';
+import SectionLabel from '../../components/case-study/SectionLabel.astro';
+import ImageSection from '../../components/case-study/ImageSection.astro';
+import ImpactGrid from '../../components/case-study/ImpactGrid.astro';
+import NextSection from '../../components/case-study/NextSection.astro';
+import MoreWork from '../../components/case-study/MoreWork.astro';
+
+// Test data
+const caseStudy = {
+  client: "Acme Corporation",
+  blurb: "A comprehensive redesign of project management software that increased team productivity by 40%",
+  role: "Design Director",
+  focus: "Led the design strategy and user experience design for the core product",
+  type: "Case Study" as const,
+  leadImage: {
+    src: "/img/example-1.jpg",
+    alt: "Project management software interface"
+  },
+  overview: {
+    summary: "Acme Corporation needed a modern, intuitive project management solution that could handle complex workflows while remaining accessible to all team members. The existing system was outdated and causing significant productivity losses.",
+    highlights: [
+      "Increased team productivity by 40%",
+      "Reduced onboarding time from 2 weeks to 2 days",
+      "Achieved 95% user satisfaction rating"
+    ]
+  },
+  context: {
+    description: "The project management landscape was evolving rapidly, with teams becoming more distributed and workflows more complex. Acme's existing solution was built for a different era of work.",
+    challenges: [
+      "Complex workflows needed to be simplified without losing functionality",
+      "Diverse user base required an intuitive interface that worked for both power users and novices",
+      "Legacy system integration required careful consideration of data migration",
+      "Mobile-first approach needed to support remote work"
+    ]
+  },
+  work: [
+    {
+      sectionTitle: "Research & Discovery",
+      sectionSubhead: "Understanding the Problem Space",
+      content: "We began with extensive user research, interviewing over 50 project managers and team members across different industries. This helped us identify key pain points and opportunities for improvement.",
+      images: [
+        {
+          src: "/img/example-1.jpg",
+          alt: "User research findings visualization",
+          caption: "Key insights from user interviews and surveys",
+          layout: "3-3" as const
+        },
+        {
+          src: "/img/example-2.jpg",
+          alt: "User research findings visualization",
+          caption: "Key insights from user interviews and surveys",
+          layout: "3-3" as const
+        }
+      ]
+    },
+    {
+      sectionTitle: "Design Process",
+      sectionSubhead: "Creating a Flexible System",
+      content: `Our design process focused on creating a flexible system that could adapt to different team needs while maintaining consistency and usability. We started with low-fidelity wireframes and gradually increased fidelity as we validated our solutions.
+
+Throughout the process, we maintained close collaboration with stakeholders and end users. Regular feedback sessions helped us identify pain points early and iterate quickly on potential solutions. This iterative approach allowed us to refine the interface while ensuring it remained intuitive and efficient.
+
+The final design system we developed was both comprehensive and flexible. It included a robust component library, clear documentation, and guidelines for implementation. This foundation enabled teams to build consistent experiences while maintaining the flexibility needed for different use cases.`,
+      images: [
+        {
+          src: "/img/example-3.jpg",
+          alt: "Early wireframes of the project management interface",
+          caption: "Initial wireframes exploring different layout options",
+          layout: "2-4" as const
+        },
+        {
+          src: "/img/example-4.jpg",
+          alt: "Refined wireframes with user feedback incorporated",
+          caption: "Refined wireframes incorporating user feedback",
+          layout: "2-4" as const
+        }
+      ]
+    },
+    {
+      sectionTitle: "Visual Design",
+      sectionSubhead: "Creating a Cohesive Look",
+      content: "The visual design phase focused on creating a cohesive and professional look while ensuring the interface remained clear and functional. We developed a comprehensive design system to maintain consistency across all features.",
+      images: [
+        {
+          src: "/img/example-5.jpg",
+          alt: "Design system components",
+          caption: "Core components of our design system",
+          layout: "full" as const
+        }
+      ]
+    },
+    {
+      sectionTitle: "Key Features",
+      sectionSubhead: "Improving Team Productivity",
+      content: "The new project management system introduced several key features that significantly improved team productivity and collaboration. These features were designed to address the core challenges identified during our research phase.",
+      images: [
+        {
+          src: "/img/example-1.jpg",
+          alt: "Project dashboard interface",
+          caption: "The main project dashboard showing key metrics and team activity",
+          layout: "full" as const
+        }
+      ]
+    },
+    {
+      sectionTitle: "User Testing",
+      sectionSubhead: "Validating Design Decisions",
+      content: "We conducted extensive user testing sessions to validate our design decisions and gather feedback for improvements. The testing process helped us identify areas for refinement and ensure the solution met user needs.",
+      images: [
+        {
+          src: "/img/example-2.jpg",
+          alt: "User testing session",
+          caption: "A user testing session in progress, gathering valuable feedback on the interface",
+          layout: "5-1" as const
+        },
+        {
+          src: "/img/example-3.jpg",
+          alt: "User testing session",
+          caption: "A user testing session in progress, gathering valuable feedback on the interface",
+          layout: "5-1" as const
+        }
+      ]
+    },
+    {
+      sectionTitle: "Implementation",
+      sectionSubhead: "Bringing the Design to Life",
+      content: "The implementation phase involved close collaboration with the development team to ensure the design was accurately translated into code. We maintained an iterative approach, continuously refining the implementation based on testing and feedback.",
+      images: [
+        {
+          src: "/img/example-1.jpg",
+          alt: "Development team collaboration",
+          caption: "Close collaboration between design and development teams during implementation",
+          layout: "1-5" as const
+        },
+        {
+          src: "/img/example-2.jpg",
+          alt: "Development team collaboration",
+          caption: "Close collaboration between design and development teams during implementation",
+          layout: "1-5" as const
+        }
+      ]
+    },
+    {
+      sectionTitle: "Final Product",
+      sectionSubhead: "The Completed Solution",
+      content: "The final product successfully addressed all the key challenges identified during the research phase. The new system provided a modern, intuitive interface that improved team productivity and collaboration.",
+      images: [
+        {
+          src: "/img/example-3.jpg",
+          alt: "Final product screenshots",
+          caption: "Key screens from the final product",
+          layout: "2-2-2" as const
+        },
+        {
+          src: "/img/example-4.jpg",
+          alt: "Final product screenshots",
+          caption: "Key screens from the final product",
+          layout: "2-2-2" as const
+        },
+        {
+          src: "/img/example-5.jpg",
+          alt: "Final product screenshots",
+          caption: "Key screens from the final product",
+          layout: "2-2-2" as const
+        }
+      ]
+    }
+  ],
+  impact: [
+    {
+      heading: "Increased Productivity",
+      description: "Teams reported a 40% increase in productivity, with particular improvements in project planning and resource allocation."
+    },
+    {
+      heading: "Better Collaboration",
+      description: "Cross-functional teams found it easier to work together, with a 60% reduction in communication overhead."
+    },
+    {
+      heading: "User Satisfaction",
+      description: "The new system achieved a 95% satisfaction rating, with users particularly praising the intuitive interface and powerful features."
+    }
+  ]
+};
+---
+
+<Layout title="Test Case Study">
+  <main>
+    <Intro
+      client={caseStudy.client}
+      blurb={caseStudy.blurb}
+      role={caseStudy.role}
+      focus={caseStudy.focus}
+      type={caseStudy.type}
+    />
+
+    <LeadImage
+      src={caseStudy.leadImage.src}
+      alt={caseStudy.leadImage.alt}
+    />
+
+    <SectionLabel title="Overview" />
+    <Section>
+      <p>{caseStudy.overview.summary}</p>
+      <ul>
+        {caseStudy.overview.highlights.map((highlight) => (
+          <li>{highlight}</li>
+        ))}
+      </ul>
+    </Section>
+
+    <SectionLabel title="Context" />
+    <Section>
+      <p>{caseStudy.context.description}</p>
+      <ul>
+        {caseStudy.context.challenges.map((challenge) => (
+          <li>{challenge}</li>
+        ))}
+      </ul>
+    </Section>
+
+    <SectionLabel title="The Work" />
+    {caseStudy.work.map((section) => (
+      <>
+        <Section 
+          title={section.sectionTitle}
+          subhead={section.sectionSubhead}
+        >
+          {section.content.split('\n\n').map((paragraph) => (
+            <p class="section-paragraph">{paragraph}</p>
+          ))}
+        </Section>
+        {section.images && <ImageSection images={section.images} />}
+      </>
+    ))}
+
+    <SectionLabel title="Impact and Outcomes" />
+    <ImpactGrid items={caseStudy.impact} />
+    <NextSection 
+      title="Designing the Future of Work"
+      href="/work/future-of-work"
+    />
+    <MoreWork 
+      items={[
+        {
+          title: "Redesigning Healthcare",
+          image: "/img/example-1.jpg",
+          href: "/work/healthcare",
+          type: "Case Study"
+        },
+        {
+          title: "Financial Services Platform",
+          image: "/img/example-2.jpg",
+          href: "/work/finance",
+          type: "Project Snapshot"
+        },
+        {
+          title: "E-commerce Experience",
+          image: "/img/example-3.jpg",
+          href: "/work/ecommerce",
+          type: "Case Study"
+        },
+        {
+          title: "Mobile Banking App",
+          image: "/img/example-4.jpg",
+          href: "/work/banking",
+          type: "Project Snapshot"
+        },
+        {
+          title: "Travel Platform",
+          image: "/img/example-5.jpg",
+          href: "/work/travel",
+          type: "Case Study"
+        },
+        {
+          title: "Education Platform",
+          image: "/img/example-1.jpg",
+          href: "/work/education",
+          type: "Project Snapshot"
+        },
+        {
+          title: "Food Delivery Service",
+          image: "/img/example-2.jpg",
+          href: "/work/food",
+          type: "Case Study"
+        },
+        {
+          title: "Fitness App",
+          image: "/img/example-3.jpg",
+          href: "/work/fitness",
+          type: "Project Snapshot"
+        },
+        {
+          title: "Real Estate Platform",
+          image: "/img/example-4.jpg",
+          href: "/work/realestate",
+          type: "Case Study"
+        }
+      ]}
+    />
+  </main>
+</Layout>
+
+<style>
+  h4 {
+    font-size: var(--fs-lg);
+    color: var(--colors-text-secondary);
+    margin-bottom: var(--space-4);
+  }
+
+  .section-paragraph {
+    margin-top: var(--space-0);
+    margin-bottom: var(--space-2);
+  }
+
+  .section-paragraph:last-child {
+    margin-bottom: 0;
+  }
+</style> 

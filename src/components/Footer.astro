@@ -12,8 +12,36 @@
             <p class="footer-copyright">© Copyright 2025 Mike Bowser. All rights reserved.</p>
 		</div>
 		
-		<div class="footer-image">
-			<img src="/img/Mike-Bowser-2025.png" alt="Mike Bowser" />
+		<div class="footer-right">
+			<div class="footer-image">
+				<img src="/img/Mike-Bowser-2025.png" alt="Mike Bowser" />
+			</div>
+			<nav class="social-nav">
+				<a href="https://linkedin.com/in/mikebowser" target="_blank" rel="noopener noreferrer" class="social-link">
+					<img src="/icons/linkedin.svg" alt="LinkedIn" />
+				</a>
+				<a href="https://github.com/mikebowser" target="_blank" rel="noopener noreferrer" class="social-link">
+					<img src="/icons/github.svg" alt="GitHub" />
+				</a>
+				<a href="https://threads.net/@mikebowser" target="_blank" rel="noopener noreferrer" class="social-link">
+					<img src="/icons/threads.svg" alt="Threads" />
+				</a>
+				<a href="https://instagram.com/mikebowser" target="_blank" rel="noopener noreferrer" class="social-link">
+					<img src="/icons/insta.svg" alt="Instagram" />
+				</a>
+				<a href="https://x.com/mikebowser" target="_blank" rel="noopener noreferrer" class="social-link">
+					<img src="/icons/x.svg" alt="X (Twitter)" />
+				</a>
+				<a href="https://bsky.app/profile/mikebowser" target="_blank" rel="noopener noreferrer" class="social-link">
+					<img src="/icons/bluesky.svg" alt="Bluesky" />
+				</a>
+				<a href="https://mastodon.social/@mikebowser" target="_blank" rel="noopener noreferrer" class="social-link">
+					<img src="/icons/mastodon.svg" alt="Mastodon" />
+				</a>
+				<a href="https://notthatbowser.com" target="_blank" rel="noopener noreferrer" class="social-link text-link">
+					Not that Bowser
+				</a>
+			</nav>
 		</div>
 	</div>
 </footer>
@@ -82,8 +110,14 @@
 		margin-top: var(--space-1);
 	}
 
-	.footer-image {
+	.footer-right {
 		grid-column: 5 / span 2;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-6);
+	}
+
+	.footer-image {
 		display: flex;
 		align-items: flex-start;
 		justify-content: center;
@@ -93,6 +127,44 @@
 		width: 100%;
 		height: auto;
 		object-fit: contain;
+	}
+
+	.social-nav {
+		display: flex;
+		align-items: center;
+		gap: var(--space-3);
+		flex-wrap: wrap;
+	}
+
+	.social-link {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 24px;
+		height: 24px;
+		color: var(--footer-text);
+		text-decoration: none;
+		transition: color 0.2s ease;
+	}
+
+	.social-link:hover {
+		color: var(--colors-gray-400);
+	}
+
+	.social-link:hover img {
+		filter: brightness(0) saturate(100%) invert(60%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(90%) contrast(90%);
+	}
+
+	.social-link img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+		transition: filter 0.2s ease;
+	}
+
+	.social-link.text-link {
+		width: auto;
+		font-size: var(--fs-sm);
 	}
 
 	@media (max-width: 768px) {
@@ -106,8 +178,12 @@
 			grid-column: 1;
 		}
 
-		.footer-image {
+		.footer-right {
 			grid-column: 1;
+		}
+
+		.social-nav {
+			justify-content: center;
 		}
 	}
 </style> 

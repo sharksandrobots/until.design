@@ -105,7 +105,7 @@
   /* Light Theme Colors */
   --colors-border-bold: var(--color-gray-700);
   --colors-border-moderate: var(--color-gray-400);
-  --colors-border-subtle: var(--color-gray-200);
+  --colors-border-subtle: var(--color-gray-300);
   --colors-interaction-primary: var(--color-olive-drab);
   --colors-surface-accent: var(--color-olive-drab);
   --colors-surface-neutral: var(--color-white);
@@ -184,9 +184,13 @@ h4 { font-size: var(--h4); }
 h5 { font-size: var(--h5); }
 
 p {
-  margin: 0;
   line-height: 1.5;
-  color: var(--colors-text-secondary);
+  color: var(--colors-text-primary);
+}
+
+/* Only apply default margins to paragraphs outside of components */
+p:not(.section-body > p):not(.section-paragraph) {
+  margin-bottom: var(--space-1);
 }
 
 .small-text {
@@ -211,6 +215,7 @@ ul {
   ul li {
     padding-left: clamp(16px, 5vw, 25px);
     position: relative;
+    margin-bottom: var(--space-1);
   }
   
   ul li::before {
