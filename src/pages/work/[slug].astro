@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
-import CaseStudy from './case-study.astro';
-import ProjectSnapshot from './project-snapshot.astro';
+import CaseStudy from './_case-study.astro';
+import ProjectSnapshot from './_project-snapshot.astro';
 
 export async function getStaticPaths() {
   const caseStudies = await getCollection('case-studies');
