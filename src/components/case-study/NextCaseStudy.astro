@@ -1,0 +1,67 @@
+---
+// components/NextCaseStudy.astro
+const { title, href, class: className = '' } = Astro.props;
+---
+
+<section class={`next-case-study ${className}`}>
+  <div class="next-case-study-content">
+    <p class="next-label">Next</p>
+    <h2 class="next-title">
+      {href ? (
+        <a href={href} class="next-link">{title}</a>
+      ) : (
+        title
+      )}
+    </h2>
+  </div>
+</section>
+
+<style>
+  .next-case-study {
+    max-width: 80vw;
+    margin: 0 auto;
+    padding: var(--space-12) 0;
+    border-top: 1px solid var(--colors-border-moderate);
+  }
+  
+  .next-case-study-content {
+    text-align: center;
+  }
+  
+  .next-label {
+    font-size: var(--fs-sm);
+    color: var(--colors-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-2);
+  }
+  
+  .next-title {
+    font-size: var(--fs-2xl);
+    font-weight: 500;
+    color: var(--colors-text-primary);
+    margin: 0;
+    line-height: 1.2;
+  }
+  
+  .next-link {
+    color: var(--colors-text-primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  
+  .next-link:hover {
+    color: var(--colors-interaction-hovered);
+    text-decoration: underline;
+  }
+  
+  @media (max-width: 1024px) {
+    .next-case-study {
+      max-width: 90vw;
+    }
+    
+    .next-title {
+      font-size: var(--fs-xl);
+    }
+  }
+</style>

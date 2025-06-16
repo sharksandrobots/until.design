@@ -31,6 +31,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Tiempos';
+  src: url('/fonts/tiempos-text-web-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Design System */
 :root {
   /* Base Spacing Unit */
@@ -84,11 +92,12 @@
   /* Typography */
   --headingFont: 'Aeonik', sans-serif;
   --bodyFont: 'Aeonik', sans-serif;
+  --essayFont: 'Tiempos', serif;
   --type-scale: 1.33;
 
   --fs-xs: calc(var(--fs-sm) / var(--type-scale));
   --fs-sm: calc(var(--fs-base) / var(--type-scale));
-  --fs-base: clamp(1rem, 0.34vw + 0.91rem, 1.125rem);
+  --fs-base: clamp(1rem, 0.34vw + 0.8rem, 1.125rem);
   --fs-md: calc(var(--fs-base) * var(--type-scale));
   --fs-lg: calc(var(--fs-md) * var(--type-scale));
   --fs-xl: calc(var(--fs-lg) * var(--type-scale));
@@ -99,8 +108,8 @@
   --h1: var(--fs-xl);
   --h2: var(--fs-lg);
   --h3: var(--fs-md);
-  --h4: var(--fs-md);
-  --h5: var(--fs-base);
+  --h4: var(--fs-base);
+  --h5: var(--fs-small);
   --smallText: var(--fs-small);
 
   --list-dash: "–";
@@ -112,10 +121,16 @@
   --colors-border-moderate: var(--color-gray-400);
   --colors-border-subtle: var(--color-gray-300);
   --colors-interaction-primary: var(--color-olive-drab);
+  --colors-interaction-enabled: var(--color-olive-drab);
+  --colors-interaction-hovered: var(--color-olive-bold);
+  --colors-interaction-active: var(--color-olive-bold);
+  --colors-interaction-selected: var(--color-olive-moderate);
+  --colors-interaction-disabled: var(--color-gray-500);
   --colors-surface-accent: var(--color-olive-drab);
   --colors-surface-neutral: var(--color-white);
   --colors-surface-primary: var(--color-gray-100);
-  --colors-surface-secondary: var(--color-gray-900);
+  --colors-surface-secondary: var(--color-gray-200);
+  --colors-surface-inverse: var(--color-gray-900);
   --colors-text-accent: var(--color-orange-burnt);
   --colors-text-primary: var(--color-gray-900);
   --colors-text-secondary: var(--color-gray-700);
@@ -150,10 +165,16 @@
   --colors-border-moderate: var(--color-gray-400);
   --colors-border-subtle: var(--color-gray-600);
   --colors-interaction-primary: var(--color-gray-100);
+  --colors-interaction-enabled: var(--color-olive-drab);
+  --colors-interaction-hovered: var(--color-olive-bold);
+  --colors-interaction-active: var(--color-olive-bold);
+  --colors-interaction-selected: var(--color-olive-moderate);
+  --colors-interaction-disabled: var(--color-gray-500);
   --colors-surface-accent: var(--color-olive-drab);
   --colors-surface-neutral: var(--color-black);
   --colors-surface-primary: var(--color-gray-900);
   --colors-surface-secondary: var(--color-gray-900);
+  --colors-surface-inverse: var(--color-gray-900);
   --colors-text-accent: var(--color-orange-burnt);
   --colors-text-primary: var(--color-white);
   --colors-text-secondary: var(--color-gray-200);
@@ -177,8 +198,9 @@ html {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--headingFont);
+  font-weight: 500;
   line-height: 1.2;
-  margin: 0;
+  margin:0 0 var(--space-2) 0;
   color: var(--colors-text-primary);
 }
 
@@ -191,12 +213,33 @@ h5 { font-size: var(--h5); }
 p {
   line-height: 1.5;
   color: var(--colors-text-primary);
+  margin-bottom: var(--space-2);
+  font-size: var(--fs-base);
 }
 
 /* Only apply default margins to paragraphs outside of components */
 p:not(.section-body > p):not(.section-paragraph) {
-  margin-bottom: var(--space-1);
+  margin-bottom: var(--space-2);
 }
+
+a {
+  color: var(--colors-text-primary);
+  text-decoration: underline;
+}
+a:hover {
+  color: var(--colors-interaction-hovered);
+  text-decoration: none;
+}
+
+a.highlight {
+  color: var(--colors-interaction-primary);
+  text-decoration: underline;
+}
+a.highlight:hover {
+  color: var(--colors-interaction-hovered);
+  text-decoration: none;
+}
+
 
 .small-text {
   font-size: var(--smallText);

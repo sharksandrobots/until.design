@@ -1,21 +1,28 @@
 ---
+import { Image } from 'astro:assets';
+
 interface Props {
+  title: string;
+  subtitle: string;
   client: string;
-  blurb: string;
+  year: string;
   role: string;
-  focus: string;
-  type: 'Case Study' | 'Project Snapshot';
+  services: string[];
+  leadImage: {
+    src: string;
+    alt: string;
+  };
 }
 
-const { client, blurb, role, focus, type } = Astro.props;
+const { title, subtitle, client, year, role, services = [], leadImage } = Astro.props;
 ---
 
 <section class="intro">
   <div class="intro-content">
     <div class="intro-left">
-      <span class="type">{type}</span>
+      <h5 class="type">{title}</h5>
       <h2 class="client">{client}</h2>
-      <p class="blurb">{blurb}</p>
+      <p class="blurb">{subtitle}</p>
     </div>
     <div class="intro-right">
       <div class="role-group">
@@ -23,11 +30,18 @@ const { client, blurb, role, focus, type } = Astro.props;
         <p class="role">{role}</p>
       </div>
       <div class="focus-group">
-        <h3 class="label">Focus</h3>
-        <p class="focus">{focus}</p>
+        <h3 class="label">Services</h3>
+        <p class="focus">{services?.join(', ') || ''}</p>
       </div>
     </div>
   </div>
+  {leadImage && (
+    <div class="lead-image-container">
+      <div class="lead-image-wrapper">
+        <Image src={leadImage.src} alt={leadImage.alt} width={1440} height={810} />
+      </div>
+    </div>
+  )}
 </section>
 
 <style>
@@ -54,7 +68,7 @@ const { client, blurb, role, focus, type } = Astro.props;
     font-size: var(--fs-sm);
     text-transform: uppercase;
     color: var(--colors-text-secondary);
-    margin-bottom: var(--space-2);
+    margin-bottom: var(--space-1);
     letter-spacing: 0.05em;
   }
 
@@ -76,7 +90,7 @@ const { client, blurb, role, focus, type } = Astro.props;
     grid-column: 5 / span 2;
     display: flex;
     flex-direction: column;
-    gap: var(--space-6);
+    columngap: var(--space-6);
   }
 
   .label {
@@ -93,7 +107,25 @@ const { client, blurb, role, focus, type } = Astro.props;
     line-height: 1.5;
     color: var(--colors-text-primary);
     margin:0;
+  }
 
+  .lead-image-container {
+    width: 100%;
+    background-color: var(--colors-background-secondary);
+    margin-top: var(--space-8);
+    padding: var(--space-4) 0;
+  }
+
+  .lead-image-wrapper {
+    width: 80vw;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  .lead-image-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
   }
 
   @media (max-width: 768px) {
@@ -113,6 +145,10 @@ const { client, blurb, role, focus, type } = Astro.props;
 
     .blurb {
       font-size: var(--fs-base);
+    }
+
+    .lead-image-wrapper {
+      width: 90vw;
     }
   }
 </style> 

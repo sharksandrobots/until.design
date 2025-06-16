@@ -1,0 +1,39 @@
+---
+// components/Image.astro
+const { src, alt, caption, class: className = '' } = Astro.props;
+---
+
+<figure class={`image-item ${className}`}>
+  <img 
+    src={src} 
+    alt={alt}
+    class="responsive-image"
+    loading="lazy"
+  />
+  {caption && (
+    <figcaption class="image-caption" data-caption={caption}>
+      {caption}
+    </figcaption>
+  )}
+</figure>
+
+<style>
+  .image-item {
+    margin: 0;
+    width: 100%;
+  }
+  
+  .responsive-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+  }
+  
+  .image-caption {
+    font-size: var(--fs-sm);
+    color: var(--colors-text-secondary);
+    margin-top: var(--space-3);
+    line-height: 1.4;
+  }
+</style>

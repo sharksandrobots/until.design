@@ -1,0 +1,191 @@
+---
+title: "Test Case Studys"
+subtitle: "Testing all image grid configurations"
+client: "Test Client"
+role: "Lead Designer"
+contribution: ["UX Design", "UI Design", "User Research"]
+caseType: "Case Study"
+projectType: ["Web Application", "Mobile App", "Design System"]
+leadImage:
+  src: "/img/example-1.jpg"
+  alt: "Test image"
+---
+
+<Section type="overview" title="Overview">
+
+This is a test case study to make sure our MDX setup is working properly and to test all image grid configurations.
+
+### Highlights
+- MDX is rendering
+- Components are working
+- Layout looks good
+
+</Section>
+
+<ImageGrid layout="3-3">
+  <Image 
+    src="/img/example-3.jpg" 
+    alt="3-3 Layout test 1"
+    caption="3-3 Layout: Image 1 (3 columns)"
+  />
+  <Image 
+    src="/img/example-4.jpg" 
+    alt="3-3 Layout test 2"
+    caption="3-3 Layout: Image 2 (3 columns)"
+  />
+</ImageGrid>
+
+<Section type="context" title="Context">
+
+Testing the full-width layout configuration.
+
+### Challenges
+- MDX is rendering
+- Components are working
+- Layout looks good
+
+</Section>
+
+<ImageGrid layout="full">
+  <Image 
+    src="/img/example-1.jpg" 
+    alt="Full width test"
+    caption="Full Layout: Single image spanning all 6 columns"
+  />
+</ImageGrid>
+
+<Section type="work" title="The Work">
+
+## Testing 2-4 Layout
+
+### This will be our scannable subhead
+
+This should show first image taking 2 columns, second taking 4 columns.
+
+</Section>
+
+<ImageGrid layout="2-4">
+  <Image 
+    src="/img/example-3.jpg" 
+    alt="2-4 Layout test 1"
+    caption="2-4 Layout: Image 1 (2 columns)"
+  />
+  <Image 
+    src="/img/example-4.jpg" 
+    alt="2-4 Layout test 2"
+    caption="2-4 Layout: Image 2 (4 columns)"
+  />
+</ImageGrid>
+
+<Section type="work" title="">
+
+## Testing 4-2 Layout
+### Another scannable subhead
+This should show first image taking 4 columns, second taking 2 columns.
+
+</Section>
+
+<ImageGrid layout="4-2">
+  <Image 
+    src="/img/example-3.jpg" 
+    alt="4-2 Layout test 1"
+    caption="4-2 Layout: Image 1 (4 columns)"
+  />
+  <Image 
+    src="/img/example-4.jpg" 
+    alt="4-2 Layout test 2"
+    caption="4-2 Layout: Image 2 (2 columns)"
+  />
+</ImageGrid>
+
+<Section type="work" title="">
+
+## Testing 5-1 Layout
+Image takes 5fr, caption takes 1fr (like 4-2 layout but with caption instead of second image).
+
+</Section>
+
+<ImageGrid layout="5-1">
+  <Image 
+    src="/img/example-1.jpg" 
+    alt="5-1 Layout test"
+    caption="This caption is hidden"
+  />
+  <Image 
+    src="/img/example-2.jpg" 
+    alt="This image is hidden"
+    caption="5-1 Layout: This caption appears in the right column (1fr) while the image is in the left column (5fr)"
+  />
+</ImageGrid>
+
+<Section type="work" title="">
+
+## Testing 1-5 Layout
+Caption takes 1fr, image takes 5fr.
+
+</Section>
+
+<ImageGrid layout="1-5">
+  <Image 
+    src="/img/example-2.jpg" 
+    alt="This image is hidden"
+    caption="1-5 Layout: This caption appears in the left column (1fr)"
+  />
+  <Image 
+    src="/img/example-1.jpg" 
+    alt="1-5 Layout test"
+    caption="This caption is hidden"
+  />
+</ImageGrid>
+
+<Section type="work" title="">
+
+## Testing 2-2-2 Layout
+This should show three images, each taking 2 columns.
+
+</Section>
+
+<ImageGrid layout="2-2-2">
+  <Image 
+    src="/img/example-3.jpg" 
+    alt="2-2-2 Layout test 1"
+    caption="2-2-2 Layout: Image 1 (2 columns)"
+  />
+  <Image 
+    src="/img/example-4.jpg" 
+    alt="2-2-2 Layout test 2"
+    caption="2-2-2 Layout: Image 2 (2 columns)"
+  />
+  <Image 
+    src="/img/example-5.jpg" 
+    alt="2-2-2 Layout test 3"
+    caption="2-2-2 Layout: Image 3 (2 columns)"
+  />
+</ImageGrid>
+
+<Section type="impact" title="Impact and Outcomes">
+
+<ImpactOutcomes>
+  <ImpactOutcome title="Increased Productivity">
+    <p>Teams reported a 40% increase in productivity, with particular improvements in project planning and resource allocation.</p>
+    <p>The new system streamlined workflows and reduced time spent on administrative tasks.</p>
+  </ImpactOutcome>
+  
+  <ImpactOutcome title="Better Collaboration">
+    <p>Cross-functional teams found it easier to work together, with a 60% reduction in communication overhead.</p>
+    <p>Real-time updates and shared workspaces improved team coordination significantly.</p>
+  </ImpactOutcome>
+  
+  <ImpactOutcome title="User Satisfaction">
+    <p>The new system achieved a 95% satisfaction rating, with users particularly praising the intuitive interface and powerful features.</p>
+    <p>Onboarding time was reduced from 2 weeks to just 2 days.</p>
+    <p>Support tickets related to usability issues decreased by 80%.</p>
+  </ImpactOutcome>
+</ImpactOutcomes>
+
+</Section>
+
+<NextCaseStudy 
+  title="Redesigning the Healthcare Experience" 
+  href="/work/healthcare-redesign"
+/>

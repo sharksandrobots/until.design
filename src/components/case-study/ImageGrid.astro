@@ -1,102 +1,126 @@
 ---
-interface Props {
-  images: Array<{
-    src: string;
-    alt: string;
-    caption: string;
-    layout: '3-3' | '2-4' | '4-2' | 'full' | '5-1' | '1-5' | '2-2-2';
-  }>;
-}
-
-const { images } = Astro.props;
-
-const getGridClass = (layout: string) => {
-  switch (layout) {
-    case '3-3':
-      return 'grid-3-3';
-    case '2-4':
-      return 'grid-2-4';
-    case '4-2':
-      return 'grid-4-2';
-    case 'full':
-      return 'grid-full';
-    case '5-1':
-      return 'grid-5-1';
-    case '1-5':
-      return 'grid-1-5';
-    case '2-2-2':
-      return 'grid-2-2-2';
-    default:
-      return '';
-  }
-};
+// components/ImageGrid.astro
+const { layout, class: className = '' } = Astro.props;
 ---
 
-<div class={`image-grid ${getGridClass(images[0].layout)}`}>
-  {images.map((image) => (
-    <figure class="image-wrapper">
-      <img src={image.src} alt={image.alt} />
-      <figcaption class="caption">{image.caption}</figcaption>
-    </figure>
-  ))}
-</div>
+<section class="image-section">
+  <div class={`image-grid ${className}`} data-layout={layout}>
+    <slot />
+  </div>
+</section>
 
 <style>
+  .image-section {
+    max-width: 80vw;
+    margin: 0 auto;
+    padding: 0 0 var(--space-4) 0 !important;
+  }
+  
   .image-grid {
-    grid-column: 1 / -1;
     display: grid;
-    gap: var(--space-4);
-    margin: var(--space-8) 0;
+    gap: var(--space-6);
+    align-items: start;
   }
-
-  .image-wrapper {
-    margin: 0;
+  
+  /* Default behavior: images fill width, maintain aspect ratio */
+  .image-grid :global(.image-item) {
+    width: 100%;
   }
-
-  img {
+  
+  .image-grid :global(.image-item img) {
     width: 100%;
     height: auto;
-    display: block;
+    object-fit: cover;
   }
-
-  .caption {
-    font-size: var(--fs-sm);
-    color: var(--colors-text-secondary);
-    margin-top: var(--space-2);
+  
+  /* Full layout can fill height if desired */
+  .image-grid[data-layout="full"] :global(.image-item) {
+    display: flex;
+    flex-direction: column;
   }
-
-  /* Layout configurations */
-  .grid-3-3 {
+  
+  .image-grid[data-layout="full"] :global(.image-item img) {
+    width: 100%;
+    height: auto; /* Still maintain aspect ratio even for full */
+    min-height: 300px; /* Optional: set minimum height for full images */
+  }
+  
+  /* 3-3: Two images, each taking 3 columns (50/50) */
+  .image-grid[data-layout="3-3"] {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  .grid-2-4 {
+  
+  /* 2-4: First image 2 cols, second image 4 cols */
+  .image-grid[data-layout="2-4"] {
     grid-template-columns: 1fr 2fr;
   }
-
-  .grid-4-2 {
+  
+  /* 4-2: First image 4 cols, second image 2 cols */
+  .image-grid[data-layout="4-2"] {
     grid-template-columns: 2fr 1fr;
   }
-
-  .grid-full {
+  
+  /* full: Single image spanning all 6 columns */
+  .image-grid[data-layout="full"] {
     grid-template-columns: 1fr;
   }
-
-  .grid-5-1 {
+  
+  /* 5-1: First image 5 cols, second content (caption only) 1 col */
+  .image-grid[data-layout="5-1"] {
     grid-template-columns: 5fr 1fr;
+    align-items: start;
   }
-
-  .grid-1-5 {
+  
+  /* 1-5: First content (caption only) 1 col, second image 5 cols */
+  .image-grid[data-layout="1-5"] {
     grid-template-columns: 1fr 5fr;
+    align-items: start;
   }
-
-  .grid-2-2-2 {
+  
+  /* 2-2-2: Three images, each taking 2 columns */
+  .image-grid[data-layout="2-2-2"] {
     grid-template-columns: repeat(3, 1fr);
   }
-
-  @media (max-width: 768px) {
+  
+  /* Special handling for 5-1 layout */
+  .image-grid[data-layout="5-1"] :global(.image-item:last-child) {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  
+  .image-grid[data-layout="5-1"] :global(.image-item:last-child img) {
+    display: none;
+  }
+  
+  .image-grid[data-layout="5-1"] :global(.image-item:last-child figcaption) {
+    margin-top: 0;
+    font-size: var(--fs-sm);
+  }
+  
+  /* Special handling for 1-5 layout */
+  .image-grid[data-layout="1-5"] :global(.image-item:first-child) {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  
+  .image-grid[data-layout="1-5"] :global(.image-item:first-child img) {
+    display: none;
+  }
+  
+  .image-grid[data-layout="1-5"] :global(.image-item:first-child figcaption) {
+    margin-top: 0;
+    font-size: var(--fs-sm);
+  }
+  
+  @media (max-width: 1024px) {
+    .image-section {
+      max-width: 90vw;
+    }
+    
     .image-grid {
       grid-template-columns: 1fr !important;
     }
   }
-</style> 
+</style>

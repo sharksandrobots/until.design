@@ -1,27 +1,62 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+// Get all case studies and project snapshots
+const caseStudies = (await getCollection('case-studies')).sort((a: CollectionEntry<'case-studies'>, b: CollectionEntry<'case-studies'>) => {
+	// Sort by the order they appear in the content directory
+	return a.slug.localeCompare(b.slug);
+});
+
+const projectSnapshots = (await getCollection('project-snapshots')).sort((a: CollectionEntry<'project-snapshots'>, b: CollectionEntry<'project-snapshots'>) => {
+	// Sort by the order they appear in the content directory
+	return a.slug.localeCompare(b.slug);
+});
 ---
 
 <Layout title="Work - Mike Bowser">
 	<main class="work">
 		<section class="content">
+			<h1 class="heading">Work</h1>
 			<div class="intro">
-				<h1 class="intro-title">Work</h1>
-				<p class="intro-text">A collection of case studies and projects showcasing my approach to design challenges and solutions.</p>
+				<p>Real problems, thoughtful solutions, and the often messy, empathy-driven process that brings everything together.</p>
 			</div>
 		</section>
 
 		<section class="content">
-			<h2 class="section-header">Case Studies</h2>
+			<h2 class="section-header">Featured Case Studies</h2>
 			<div class="case-studies-grid">
-				<!-- Case studies will be listed here -->
+				{caseStudies.map((caseStudy: CollectionEntry<'case-studies'>) => (
+					<div class="card">
+						<a href={`/work/${caseStudy.slug}`}>
+							<img src={caseStudy.data.leadImage.src} alt={caseStudy.data.leadImage.alt} />
+						</a>
+						<h5>{caseStudy.data.projectType.join(', ')}</h5>
+						<h3>
+							<a href={`/work/${caseStudy.slug}`}>{caseStudy.data.title}</a>
+						</h3>
+						<p>{caseStudy.data.subtitle}</p>
+					</div>
+				))}
 			</div>
 		</section>
 
 		<section class="content">
-			<h2 class="section-header">Projects</h2>
+			<h2 class="section-header">Project Snapshots</h2>
 			<div class="projects-grid">
-				<!-- Projects will be listed here -->
+				{projectSnapshots.map((snapshot: CollectionEntry<'project-snapshots'>) => (
+					<div class="card">
+						<a href={`/work/${snapshot.slug}`}>
+							<img src={snapshot.data.leadImage.src} alt={snapshot.data.leadImage.alt} />
+						</a>
+						<h5>{snapshot.data.projectType}</h5>
+						<h3>
+							<a href={`/work/${snapshot.slug}`}>{snapshot.data.title}</a>
+						</h3>
+						<p>{snapshot.data.subtitle}</p>
+					</div>
+				))}
 			</div>
 		</section>
 	</main>
@@ -39,35 +74,34 @@ import Layout from '../../layouts/Layout.astro';
 		margin: 0 auto;
 		display: grid;
 		grid-template-columns: repeat(6, 1fr);
-		gap: var(--space-4);
+		column-gap: var(--space-4);
 		padding: var(--space-4) 0;
 	}
 
+	.heading {
+		grid-column: 2 / span 3;
+		font-size: var(--fs-xl);
+		font-weight: 500;
+		color: var(--colors-text-primary);
+		margin-bottom: var(--space-4);
+	}
+
 	.intro {
-		grid-column: 1 / span 4;
-		display: flex;
-		flex-direction: column;
-		gap: var(--space-4);
+		grid-column: 2 / span 3;
 		margin-bottom: var(--space-8);
 	}
 
-	.intro-title {
-		font-size: var(--h1);
-		font-weight: 700;
-		line-height: 1.2;
+	.intro p {
+		font-size: var(--fs-md);
+		line-height: 1.4;
 		color: var(--colors-text-primary);
-	}
-
-	.intro-text {
-		font-size: var(--fs-base);
-		line-height: 1.5;
-		color: var(--colors-text-secondary);
+		margin: 0;
 	}
 
 	.section-header {
 		grid-column: 1 / -1;
-		font-size: var(--h2);
-		font-weight: 600;
+		font-size: var(--fs-lg);
+		font-weight: 500;
 		color: var(--colors-text-primary);
 		margin-bottom: var(--space-4);
 	}
@@ -86,18 +120,68 @@ import Layout from '../../layouts/Layout.astro';
 		gap: var(--space-4);
 	}
 
+	.card {
+		color: inherit;
+	}
+
+
+
+	.card img {
+		width: 100%;
+		aspect-ratio: 16/9;
+		object-fit: cover;
+		border-radius: var(--radius-lg);
+		margin-bottom: var(--space-2);
+		transition: filter 0.3s ease;
+	}
+
+	.card img:hover {
+		filter: brightness(0.5);
+	}
+
+	.card h3 {
+		font-size: var(--fs-md);
+		font-weight: 500;
+		color: var(--colors-text-primary);
+		margin: 0 0 var(--space-2) 0;
+	}
+
+	.card h3 a {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.card h3 a:hover {
+		color: var(--colors-text-primary);
+		text-decoration: underline;
+	}
+
+	.card h5 {
+		font-size: var(--fs-sm);
+		font-weight: 500;
+		color: var(--colors-text-secondary);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		margin-bottom: var(--space-1);
+	}
+
+	.card p {
+		font-size: var(--fs-base);
+		line-height: 1.5;
+		color: var(--colors-text-secondary);
+		margin: 0 0 var(--space-4) 0;
+
+	}
+
 	@media (max-width: 768px) {
 		.content {
 			width: 90vw;
 			gap: var(--space-4);
 		}
 
+		.heading,
 		.intro {
 			grid-column: 1 / -1;
-		}
-
-		.intro-title {
-			font-size: var(--fs-xl);
 		}
 
 		.case-studies-grid,

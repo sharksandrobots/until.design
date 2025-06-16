@@ -1,0 +1,114 @@
+---
+interface Props {
+  title?: string;
+  subhead?: string;
+  isMainSection?: boolean;
+}
+
+const { title, subhead, isMainSection = false } = Astro.props;
+---
+
+<section class="case-study-section">
+  {title && <h2 class="section-title">{title}</h2>}
+  <div class="section-body">
+    {subhead && <h3 class="section-subhead">{subhead}</h3>}
+    <slot />
+  </div>
+</section>
+
+<style>
+  .case-study-section {
+    width: 100%;
+    padding: var(--space-6) 0;
+  }
+
+  .section-title {
+    font-size: var(--fs-lg);
+    font-weight: 600;
+    color: var(--colors-text-primary);
+    margin-bottom: var(--space-3);
+  }
+
+  .section-subhead {
+    font-size: var(--fs-md);
+    font-weight: 500;
+    color: var(--colors-text-primary);
+    margin: var(--space-4) 0 var(--space-4) 0;
+  }
+
+  .section-body {
+    width: 100%;
+  }
+
+  :global(.markdown-content) {
+    width: 100%;
+    font-size: var(--fs-lg);
+    line-height: 1.6;
+    color: var(--colors-text-primary);
+  }
+
+  :global(.markdown-content p) {
+    margin-bottom: var(--space-4);
+  }
+
+  :global(.markdown-content h3) {
+    font-size: var(--fs-xl);
+    margin: var(--space-6) 0 var(--space-4);
+  }
+
+  :global(.markdown-content ul) {
+    list-style: disc;
+    margin-left: var(--space-4);
+    margin-bottom: var(--space-4);
+  }
+
+  :global(.markdown-content li) {
+    margin-bottom: var(--space-2);
+  }
+
+  :global(.markdown-content h2) {
+    font-size: var(--fs-2xl);
+    margin: var(--space-8) 0 var(--space-4);
+  }
+
+  :global(.markdown-content h1) {
+    font-size: var(--fs-3xl);
+    margin: var(--space-10) 0 var(--space-6);
+  }
+
+  :global(.markdown-content a) {
+    color: var(--colors-text-primary);
+    text-decoration: underline;
+  }
+
+  :global(.markdown-content blockquote) {
+    border-left: 4px solid var(--colors-text-secondary);
+    padding-left: var(--space-4);
+    margin: var(--space-4) 0;
+    font-style: italic;
+  }
+
+  :global(.markdown-content code) {
+    background: var(--colors-background-secondary);
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-family: monospace;
+  }
+
+  :global(.markdown-content pre) {
+    background: var(--colors-background-secondary);
+    padding: var(--space-4);
+    border-radius: 4px;
+    overflow-x: auto;
+    margin: var(--space-4) 0;
+  }
+
+  :global(.markdown-content pre code) {
+    background: none;
+    padding: 0;
+  }
+
+  :global(.markdown-content img) {
+    display: none; /* Hide images in the content as they'll be handled by ImageSection */
+  }
+</style> 

@@ -4,43 +4,17 @@ const caseStudies = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
+    subtitle: z.string(),
     client: z.string(),
-    blurb: z.string(),
     role: z.string(),
-    focus: z.string(),
+    contribution: z.array(z.string()),
     caseType: z.enum(['Case Study']),
+    projectType: z.array(z.string()),
     leadImage: z.object({
       src: z.string(),
-      alt: z.string()
+      alt: z.string(),
     }),
-    overview: z.object({
-      summary: z.string(),
-      highlights: z.array(z.string())
-    }),
-    context: z.object({
-      description: z.string(),
-      challenges: z.array(z.string())
-    }),
-    work: z.array(z.object({
-      sectionTitle: z.string(),
-      sectionSubhead: z.string(),
-      content: z.string(),
-      images: z.array(z.object({
-        src: z.string(),
-        alt: z.string(),
-        caption: z.string(),
-        layout: z.string()
-      }))
-    })),
-    impact: z.array(z.object({
-      heading: z.string(),
-      description: z.string()
-    })),
-    nextCaseStudy: z.object({
-      title: z.string(),
-      slug: z.string()
-    })
-  })
+  }),
 });
 
 const projectSnapshots = defineCollection({
@@ -48,41 +22,49 @@ const projectSnapshots = defineCollection({
   schema: z.object({
     title: z.string(),
     client: z.string(),
-    blurb: z.string(),
+    subtitle: z.string(),
     role: z.string(),
-    focus: z.string(),
+    contribution: z.array(z.string()),
     caseType: z.enum(['Project Snapshot']),
+    projectType: z.array(z.string()),
     leadImage: z.object({
       src: z.string(),
-      alt: z.string()
+      alt: z.string(),
     }),
-    overview: z.object({
-      summary: z.string(),
-      highlights: z.array(z.string())
-    }),
-    work: z.array(z.object({
-      sectionTitle: z.string(),
-      sectionSubhead: z.string(),
-      content: z.string(),
-      images: z.array(z.object({
-        src: z.string(),
-        alt: z.string(),
-        caption: z.string(),
-        layout: z.string()
-      }))
-    })),
-    impact: z.array(z.object({
-      heading: z.string(),
-      description: z.string()
-    })),
-    nextCaseStudy: z.object({
-      title: z.string(),
-      slug: z.string()
-    })
-  })
+  }),
+});
+
+const about = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+  }),
+});
+
+const home = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    heading: z.string(),
+    intro: z.string(),
+  }),
+});
+
+const essays = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    blurb: z.string(),
+    date: z.string().optional(),
+    readingTime: z.string(),
+    topics: z.array(z.string()),
+  }),
 });
 
 export const collections = {
   'case-studies': caseStudies,
-  'project-snapshots': projectSnapshots
-}; 
+  'project-snapshots': projectSnapshots,
+  'about': about,
+  'home': home,
+  'essays': essays,
+} as const;

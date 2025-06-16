@@ -1,0 +1,161 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const essays = await getCollection('essays');
+  return essays.map(essay => ({
+    params: { slug: essay.slug },
+    props: { essay },
+  }));
+}
+
+const { essay } = Astro.props;
+const { Content } = await essay.render();
+---
+
+<Layout title={`${essay.data.title} - Mike Bowser`}>
+	<main class="essay">
+		<article class="content">
+			<header>
+				<h1>{essay.data.title}</h1>
+				<div class="meta">
+					{essay.data.date && <time datetime={essay.data.date}>{new Date(essay.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>}
+					<span class="reading-time">{essay.data.readingTime}</span>
+				</div>
+				<div class="topics">
+					{essay.data.topics.map((topic) => (
+						<span class="topic">#{topic}</span>
+					))}
+				</div>
+			</header>
+			<Content />
+		</article>
+	</main>
+</Layout>
+
+<style>
+	.essay {
+		width: 100%;
+		padding: var(--space-4) 0;
+	}
+
+	.content {
+		width: 90vw;
+		max-width: 40rem;
+		margin: 0 auto;
+	}
+
+	header {
+		margin-bottom: var(--space-6);
+	}
+
+	h1 {
+		font-size: var(--h1);
+		font-weight: 500;
+		color: var(--colors-text-primary);
+		margin-bottom: var(--space-2);
+	}
+
+	.meta {
+		display: flex;
+		gap: var(--space-2);
+		font-size: var(--fs-sm);
+		color: var(--colors-text-secondary);
+		margin-bottom: var(--space-2);
+	}
+
+	.topics {
+		display: flex;
+		gap: var(--space-2);
+		flex-wrap: wrap;
+	}
+
+	.topic {
+		font-size: var(--fs-sm);
+		color: var(--colors-text-secondary);
+	}
+
+	:global(h2) {
+		font-size: var(--h2);
+		font-weight: 500;
+		color: var(--colors-text-primary);
+		margin: var(--space-6) 0 var(--space-4);
+	}
+
+	:global(h3) {
+		font-size: var(--h3);
+		font-weight: 500;
+		color: var(--colors-text-primary);
+		margin: var(--space-4) 0 var(--space-2);
+	}
+
+	:global(p) {
+		font-size: var(--fs-base);
+		line-height: 1.6;
+		color: var(--colors-text-primary);
+		margin: var(--space-2) 0 var(--space-4); 
+        font-family: var(--essayFont);
+	}
+
+	:global(ul), :global(ol) {
+		margin: var(--space-2) 0 var(--space-4); 
+		padding-left: var(--space-4);
+	}
+
+	:global(li) {
+		margin-bottom: var(--space-2);
+        font-family: var(--essayFont);
+        font-size: var(--fs-base);
+
+	}
+
+	:global(figure) {
+		margin: var(--space-4) 0;
+	}
+
+	:global(figcaption) {
+		font-size: var(--fs-sm);
+		color: var(--colors-text-secondary);
+		text-align: left;
+		margin-top: var(--space-2);
+	}
+
+	:global(blockquote) {
+		border-left: 4px solid var(--colors-border);
+		padding-left: var(--space-4);
+		margin: var(--space-4) 0;
+		font-style: italic;
+		color: var(--colors-text-secondary);
+	}
+
+	:global(a) {
+		color: var(--colors-primary);
+		text-decoration: underline;
+		text-underline-offset: 2px;
+	}
+
+	:global(a:hover) {
+		text-decoration: none;
+	}
+
+	:global(code) {
+		background: var(--colors-background-secondary);
+		padding: 0.2em 0.4em;
+		border-radius: var(--radius-sm);
+		font-size: 0.9em;
+	}
+
+	:global(pre) {
+		background: var(--colors-background-secondary);
+		padding: var(--space-4);
+		border-radius: var(--radius-lg);
+		overflow-x: auto;
+		margin: var(--space-4) 0;
+	}
+
+	:global(pre code) {
+		background: none;
+		padding: 0;
+	}
+</style> 

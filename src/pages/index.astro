@@ -1,131 +1,36 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getEntry } from 'astro:content';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const home = await getEntry('home', 'home');
+if (!home) {
+	throw new Error('Home page content not found');
+}
+const { Content } = await home.render();
 ---
 
-<Layout title="Mike Bowser - UX/Product Designer">
-	<main class="home">
+<Layout title={home.data.title}>
+
+
+ <main class="home">
 		<section class="content">
+			<h2>Building new site, check back soon.</h2>
+
+				<!-- <h1 class="heading">{home.data.heading}</h1>
 			<div class="intro">
-				<h1 class="intro-title">Coming Soon</h1>
-				<p class="intro-text">This site is currently under construction. Check back soon for updates.</p>
-			</div>
+				{home.data.intro.split('\n\n').map((paragraph) => (
+					<p>{paragraph}</p>
+				))}
+			</div>-->
 		</section>
 
-		{/* Temporarily commented out until site is ready
-		<section class="content">
-			<h2 class="section-header">Featured Case Studies</h2>
-				<article class="case-study">
-					<div class="image-block">
-						<img src="/img/example-1.jpg" alt="Case Study 1" />
-					</div>
-					<div class="content-block">
-						<h5 class="eyebrow">Web Design</h5>
-						<h3 class="headline">Designing a Better Way to Manage Projects</h3>
-						<p class="description">A comprehensive case study on how we redesigned the project management experience for a leading software company.</p>
-					</div>
-				</article>
-
-				<article class="case-study">
-					<div class="image-block">
-						<img src="/img/example-2.jpg" alt="Case Study 2" />
-					</div>
-					<div class="content-block">
-						<h5 class="eyebrow">Web Design</h5>
-						<h3 class="headline">Understanding User Needs Through Research</h3>
-						<p class="description">How we used research to uncover key insights that led to a successful product redesign.</p>
-					</div>
-				</article>
-
-				<article class="case-study">
-					<div class="image-block">
-						<img src="/img/example-1.jpg" alt="Case Study 3" />
-					</div>
-					<div class="content-block">
-						<h5 class="eyebrow">Web Design</h5>
-						<h3 class="headline">Building a Scalable Design System</h3>
-						<p class="description">The process of creating and implementing a design system that scales with the product.</p>
-					</div>
-				</article>
-		</section>
-
-		<section class="content">
-			<h2 class="section-header">Featured Projects</h2>
-			<div class="projects-grid">
-				<article class="project">
-					<div class="image-block">
-						<img src="/img/example-1.jpg" alt="Project 1" />
-					</div>
-					<div class="content-block">
-						<h5 class="eyebrow">Web Design</h5>
-						<h3 class="headline">Modern E-commerce Experience</h3>
-						<p class="description">A fresh take on online shopping that puts the focus on the products.</p>
-					</div>
-				</article>
-
-				<article class="project">
-					<div class="image-block">
-						<img src="/img/example-1.jpg" alt="Project 2" />
-					</div>
-					<div class="content-block">
-						<h5 class="eyebrow">Web Design</h5>
-						<h3 class="headline">Fitness Tracking Made Simple</h3>
-						<p class="description">An intuitive mobile app that helps users track their fitness journey.</p>
-					</div>
-				</article>
-
-				<article class="project">
-					<div class="image-block">
-						<img src="/img/example-1.jpg" alt="Project 3" />
-					</div>
-					<div class="content-block">
-						<h5 class="eyebrow">Web Design</h5>
-						<h3 class="headline">Rebranding a Tech Startup</h3>
-						<p class="description">Creating a bold new identity for an innovative tech company.</p>
-					</div>
-				</article>
-
-				<article class="project">
-					<div class="image-block">
-						<img src="/img/example-1.jpg" alt="Project 4" />
-					</div>
-					<div class="content-block">
-						<h5 class="eyebrow">Web Design</h5>
-						<h3 class="headline">Dashboard Redesign</h3>
-						<p class="description">Simplifying complex data visualization for better user understanding.</p>
-					</div>
-				</article>
-
-				<article class="project">
-					<div class="image-block">
-						<img src="/img/example-1.jpg" alt="Project 5" />
-					</div>
-					<div class="content-block">
-						<h5 class="eyebrow">Web Design</h5>
-						<h3 class="headline">Streamlined Checkout Flow</h3>
-						<p class="description">Reducing friction in the checkout process to increase conversions.</p>
-					</div>
-				</article>
-
-				<article class="project">
-					<div class="image-block">
-						<img src="/img/example-1.jpg" alt="Project 6" />
-					</div>
-					<div class="content-block">
-						<h5 class="eyebrow">Web Design</h5>
-						<h3 class="headline">Onboarding Experience</h3>
-						<p class="description">Creating a welcoming first-time user experience that drives engagement.</p>
-					</div>
-				</article>
-			</div>
-		</section>
-		*/}
+		<!--<section class="content">
+			<Content />
+		</section>-->
 	</main>
 </Layout>
 
-		<style>
+<style>
 	.home {
 		width: 100%;
 		padding: var(--space-4) 0;
@@ -137,124 +42,108 @@ import Layout from '../layouts/Layout.astro';
 		margin: 0 auto;
 		display: grid;
 		grid-template-columns: repeat(6, 1fr);
-		gap: var(--space-4);
-		padding: var(--space-4) 0;
+		column-gap: var(--space-4);
+		padding: var(--space-2) 0;
+	}
+
+	.heading {
+		grid-column: 2 / span 3;
+		font-size: var(--fs-lg);
+		font-weight: 500;
+		color: var(--colors-text-primary);
+		margin: 0 0 var(--space-4) 0;
 	}
 
 	.intro {
-		grid-column: 1 / span 4;
-		display: flex;
-		flex-direction: column;
-		gap: var(--space-4);
-		margin-bottom: var(--space-8);
+		grid-column: 2 / span 3;
+		margin-bottom: var(--space-4);
 	}
 
-	.intro-title {
-		font-size: var(--h1);
-		font-weight: 700;
-		line-height: 1.2;
-		color: var(--colors-text-primary);
-	}
-
-	.intro-text {
+	.intro p {
 		font-size: var(--fs-base);
-		line-height: 1.5;
-		color: var(--colors-text-secondary);
+		line-height: 1.4;
+		color: var(--colors-text-primary);
+		margin: 0 0 var(--space-4) 0;
 	}
 
-	.section-header {
+	.content :global(h2) {
 		grid-column: 1 / -1;
-		font-size: var(--h2);
-		font-weight: 600;
+		font-size: var(--fs-lg);
+		font-weight: 500;
 		color: var(--colors-text-primary);
 		margin-bottom: var(--space-4);
 	}
 
-	/* Featured Case Studies */
-	.case-study {
+	.content :global(.case-studies-grid) {
 		grid-column: 1 / -1;
 		display: grid;
-		grid-template-columns: repeat(5, 1fr);
+		grid-template-columns: repeat(2, 1fr);
 		gap: var(--space-4);
-		margin-bottom: var(--space-8);
 	}
 
-	.case-study .image-block {
+	.content :global(.projects-grid) {
 		grid-column: 1 / -1;
-		width: 100%;
-		max-height: 40rem;
-		background-color: var(--colors-surface-secondary);
-		position: relative;
-		overflow: hidden;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--space-4);
 	}
 
-	.case-study .image-block img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
+	.content :global(.card) {
+		color: inherit;
+		transition: transform 0.2s ease;
+		margin-bottom: var(--space-4);
 	}
 
-	.case-study .content-block {
-		grid-column: 1 / span 3;
-	}
-
-	.headline {
-		font-size: var(--h3);
-		font-weight: 600;
+	.content :global(.card h3) {
+		font-size: var(--fs-md);
 		color: var(--colors-text-primary);
 	}
 
-	.eyebrow {
+	.content :global(.card h3 a) {
+		color: var(--colors-text-primary);
+		text-decoration: none;
+	}
+	.content :global(.card h3 a:hover) {
+		color: var(--colors-text-primary);
+		text-decoration: underline;
+	}
+
+
+
+	.content :global(.card h4) {
+		font-size: var(--fs-base);
+		color: var(--colors-text-primary);
+		margin: var(--space-1) 0;
+	}
+
+	.content :global(.card p) {
+		font-size: var(--fs-base);
+		line-height: 1.5;
+		color: var(--colors-text-primary);
+		margin: 0 0 var(--space-2) 0;
+	}
+
+	.content :global(.card h5) {
+		display: block;
 		font-size: var(--fs-sm);
 		font-weight: 500;
 		color: var(--colors-text-secondary);
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
+		margin-bottom: var(--space-1);
 	}
 
-	.description {
-		font-size: var(--fs-base);
-		color: var(--colors-text-secondary);
-		line-height: 1.5;
-	}
-
-	/* Featured Projects */
-	.projects-grid {
-		grid-column: 1 / -1;
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: var(--space-4);
-		width: 100%;
-	}
-
-	.project {
-		display: flex;
-		flex-direction: column;
-		gap: var(--space-4);
-		width: 100%;
-		max-width: 100%;
-		margin-bottom: var(--space-8);
-	}
-
-	.project .image-block {
+	.content :global(.card img) {
 		width: 100%;
 		aspect-ratio: 16/9;
-		background-color: var(--colors-surface-secondary);
-		position: relative;
-		border-radius: var(--radius-lg);
-		overflow: hidden;
-	}
-
-	.project .image-block img {
-		width: 100%;
-		height: 100%;
 		object-fit: cover;
+		border-radius: var(--radius-lg);
+		margin-bottom: var(--space-2);
+		transition: filter 0.3s ease;	
 	}
 
-	.project .content-block {
-				display: flex;
-		flex-direction: column;
-		width: 100%;
+	.content :global(.card img:hover) {
+		filter: brightness(0.5);
 	}
 
 	@media (max-width: 768px) {
@@ -263,20 +152,14 @@ import Layout from '../layouts/Layout.astro';
 			gap: var(--space-4);
 		}
 
+		.heading,
 		.intro {
 			grid-column: 1 / -1;
-			}
-
-		.intro-title {
-			font-size: var(--fs-xl);
 		}
 
-		.case-study .content-block {
-			grid-column: 1 / -1;
-		}
-
-		.projects-grid {
+		.content :global(.case-studies-grid),
+		.content :global(.projects-grid) {
 			grid-template-columns: 1fr;
 		}
-			}
-		</style>
+	}
+</style>

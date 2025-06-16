@@ -1,92 +1,132 @@
 ---
-interface Props {
-  title?: string;
-  subhead?: string;
-}
-
-const { title, subhead } = Astro.props;
+// components/Section.astro
+const { type, title, subhead, class: className = '' } = Astro.props;
 ---
 
-<section class="case-study-section">
+{title && (
+  <div class="section-label">
+    <h2 class="project-section-header">{title}</h2>
+  </div>
+)}
+
+<section class={`section section-${type} ${className}`}>
+  {subhead && <h3 class="section-subhead">{subhead}</h3>}
   <div class="section-content">
-    <div class="section-text">
-      {title && <h2 class="section-title">{title}</h2>}
-      {subhead && <h4 class="section-subhead">{subhead}</h4>}
-      <div class="section-body">
-        <slot />
-      </div>
-    </div>
+    <slot />
   </div>
 </section>
 
-<style>
-  .case-study-section {
-    width: 100%;
-    padding: var(--space-6) 0;
-  }
-
-  .section-content {
-    width: 80vw;
-    max-width: 1440px;
+<style is:global>
+  .section-label {
+    max-width: 80vw;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: var(--space-4);
+    padding: var(--space-4) 0 var(--space-4) 0;
   }
-
-  .section-text {
-    grid-column: 2 / span 3;
-  }
-
-  .section-title {
-    font-size: var(--fs-lg);
-    font-weight: 600;
+  
+  .project-section-header {
+    font-size: var(--fs-base);
+    font-weight: 500;
     color: var(--colors-text-primary);
-    margin-bottom: var(--space-3);
-  }
-
-  .section-subhead {
-    font-size: var(--fs-md);
-    color: var(--colors-text-primary);
-    margin-bottom: var(--space-1);
-  }
-
-  .section-body {
-    margin-bottom: var(--space-1);
-    line-height: 1.5;
-  }
-
-  .section-body > p {
-    color: var(--colors-text-primary);
-    margin-bottom: var(--space-2) !important;
-  }
-
-  .section-body > p:last-child {
-    margin-bottom: 0 !important;
-  }
-
-  .section-body ul {
-    margin-bottom: var(--space-4);
-    padding-left: var(--space-4);
-  }
-
-  .section-body li {
-    margin-bottom: var(--space-2);
-    line-height: 1.5;
-    color: var(--colors-text-primary);
-  }
-
-  .section-body li:last-child {
+    border-top: 1px solid var(--colors-border-moderate);
+    padding-top: var(--space-1);
     margin-bottom: 0;
   }
-
+  
+  .section {
+    max-width: 80vw;
+    margin: 0 auto;
+    padding: 0 0 var(--space-4) 0;
+  }
+  
+  .section-content {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    column-gap: var(--space-6);
+  }
+  
+  /* Overview and Context sections - copy in columns 2-4 */
+  .section-overview .section-content > *,
+  .section-context .section-content > * {
+    grid-column: 2 / 5;
+  }
+  
+  /* Work section - copy in columns 2-4 */
+  .section-work .section-content > * {
+    grid-column: 2 / 5;
+  }
+  
+  /* Impact section spans all columns */
+  .section-impact .section-content > * {
+    grid-column: 1 / -1;
+  }
+  
+  .section-subhead {
+    font-size: var(--fs-lg);
+    font-weight: 600;
+    color: var(--colors-text-secondary);
+    margin-bottom: var(--space-4);
+    grid-column: 2 / 5;
+  }
+  
+  .section-impact .section-subhead {
+    grid-column: 1 / -1;
+  }
+  
+  /* Typography within sections */
+  .section-content h2 {
+    font-size: var(--fs-xl);
+    font-weight: 500;
+    margin: var(--space-4) 0 var(--space-4) 0;
+    color: var(--colors-text-primary);
+  }
+  
+  .section-content h3 {
+    font-size: var(--fs-md);
+    font-weight: 500;
+    margin: var(--space-2) 0 var(--space-2) 0;
+    color: var(--colors-text-primary);
+  }
+  
+  .section-content p {
+    margin: 0 0 var(--space-4) 0;
+    line-height: 1.6;
+    color: var(--colors-text-primary);
+    font-size: var(--fs-base);
+  }
+  
+  .section-content ul {
+    margin: 0 0 var(--space-4) 0;
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .section-content li {
+    position: relative;
+    padding-left: var(--space-2);
+    margin: 0 0 var(--space-2) 0;
+    color: var(--colors-text-primary);
+  }
+  
+  .section-content li::before {
+    content: var(--list-dash);
+    position: absolute;
+    left: 0;
+    color: var(--list-dash-color);
+  }
+  
   @media (max-width: 768px) {
-    .section-content {
-      width: 90vw;
+    .section-label,
+    .section {
+      max-width: 90vw;
     }
-
-    .section-text {
-      grid-column: 1 / -1;
+    
+    .section-content {
+      grid-template-columns: 1fr;
+    }
+    
+    .section-content > *,
+    .section-subhead {
+      grid-column: 1 !important;
     }
   }
-</style> 
+</style>

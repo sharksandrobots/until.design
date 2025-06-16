@@ -3,31 +3,29 @@ import { getCollection } from 'astro:content';
 import CaseStudy from './case-study.astro';
 import ProjectSnapshot from './project-snapshot.astro';
 
-// If we're on case-study or project-snapshot paths, redirect to /work
-if (Astro.params.slug === 'case-study' || Astro.params.slug === 'project-snapshot') {
-	return Astro.redirect('/work');
-}
-
 export async function getStaticPaths() {
-	const caseStudies = await getCollection('case-studies');
-	const projectSnapshots = await getCollection('project-snapshots');
-	
-	const caseStudyPaths = caseStudies.map(caseStudy => ({
-		params: { slug: caseStudy.slug },
-		props: { caseStudy }
-	}));
-
-	const projectSnapshotPaths = projectSnapshots.map(snapshot => ({
-		params: { slug: snapshot.slug },
-		props: { snapshot }
-	}));
-
-	return [...caseStudyPaths, ...projectSnapshotPaths];
+  const caseStudies = await getCollection('case-studies');
+  const projectSnapshots = await getCollection('project-snapshots');
+  
+  const caseStudyPaths = caseStudies.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry, type: 'case-study' },
+  }));
+  
+  const projectSnapshotPaths = projectSnapshots.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry, type: 'project-snapshot' },
+  }));
+  
+  return [...caseStudyPaths, ...projectSnapshotPaths];
 }
 
-const { caseStudy, snapshot } = Astro.props;
+const { entry, type } = Astro.props;
+const { Content } = await entry.render();
 ---
 
-{caseStudy && <CaseStudy caseStudy={caseStudy} />}
-{snapshot && <ProjectSnapshot snapshot={snapshot} />}
-
+{type === 'case-study' ? (
+  <CaseStudy frontmatter={entry.data} Content={Content} />
+) : (
+  <ProjectSnapshot frontmatter={entry.data} Content={Content} />
+)}

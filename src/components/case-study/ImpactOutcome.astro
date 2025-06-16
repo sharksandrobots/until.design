@@ -1,0 +1,40 @@
+---
+// components/ImpactOutcome.astro
+const { title, class: className = '' } = Astro.props;
+---
+
+<div class={`impact-outcome ${className}`}>
+  <h3 class="impact-title">{title}</h3>
+  <div class="impact-content">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .impact-outcome {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .impact-title {
+    font-size: var(--fs-md);
+    font-weight: 500;
+    margin-bottom: var(--space-3);
+    color: var(--colors-text-primary);
+  }
+  
+  .impact-content {
+    flex: 1;
+  }
+  
+  .impact-content :global(p) {
+    color: var(--colors-text-primary);
+    font-size: var(--fs-base);
+    line-height: 1.6;
+    margin-bottom: var(--space-2);
+  }
+  
+  .impact-content :global(p:last-child) {
+    margin-bottom: 0;
+  }
+</style>

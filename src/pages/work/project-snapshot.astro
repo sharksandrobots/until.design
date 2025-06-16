@@ -1,112 +1,197 @@
 ---
+// project-snapshot.astro
 import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
-import Intro from '../../components/case-study/Intro.astro';
-import LeadImage from '../../components/case-study/LeadImage.astro';
+import ImageGrid from '../../components/case-study/ImageGrid.astro';
+import Image from '../../components/case-study/Image.astro';
 import Section from '../../components/case-study/Section.astro';
-import SectionLabel from '../../components/case-study/SectionLabel.astro';
-import ImageSection from '../../components/case-study/ImageSection.astro';
-import ImpactGrid from '../../components/case-study/ImpactGrid.astro';
-import NextSection from '../../components/case-study/NextSection.astro';
-import MoreWork from '../../components/case-study/MoreWork.astro';
+import ImpactOutcomes from '../../components/case-study/ImpactOutcomes.astro';
+import ImpactOutcome from '../../components/case-study/ImpactOutcome.astro';
+import NextCaseStudy from '../../components/case-study/NextCaseStudy.astro';
 
-const { snapshot } = Astro.props;
-
-if (!snapshot) {
-  return Astro.redirect('/work');
+export interface Props {
+  frontmatter: {
+    title: string;
+    client: string;
+    subtitle: string;
+    role: string;
+    contribution: string[];
+    caseType: 'Project Snapshot';
+    projectType: string[];
+    leadImage: {
+      src: string;
+      alt: string;
+    };
+  };
+  Content: any; // MDX component
 }
 
-// Get all case studies and project snapshots for More Work section
-const allCaseStudies = await getCollection('case-studies');
-const allProjectSnapshots = await getCollection('project-snapshots');
-
-// Combine and filter out current item
-const moreWorkItems = [
-  ...allCaseStudies
-    .map(cs => ({
-      title: cs.data.title,
-      image: cs.data.leadImage.src,
-      href: `/work/${cs.slug}`,
-      type: cs.data.caseType
-    })),
-  ...allProjectSnapshots
-    .filter(ps => ps.slug !== snapshot.slug)
-    .map(ps => ({
-      title: ps.data.title,
-      image: ps.data.leadImage.src,
-      href: `/work/${ps.slug}`,
-      type: ps.data.caseType
-    }))
-];
+const { frontmatter, Content } = Astro.props;
 ---
 
-<Layout title={`${snapshot.data.title} - Mike Bowser`}>
-  <main>
-    <Intro
-      client={snapshot.data.client}
-      blurb={snapshot.data.blurb}
-      role={snapshot.data.role}
-      focus={snapshot.data.focus}
-      type={snapshot.data.caseType}
-    />
+<Layout title={`${frontmatter.title} - Mike Bowser`}>
+  <article class="case-study">
+    <!-- Intro Section -->
+    <section class="intro">
+      <div class="intro-grid">
+        <!-- Client and blurb (columns 1-4) -->
+        <div class="intro-content">
+          <h5 class="type">{frontmatter.projectType}</h5>
+          <h1 class="client-name">{frontmatter.title}</h1>
+          <p class="subtitle">{frontmatter.subtitle}</p>
+        </div>
+        
+        <!-- Role info (columns 5-6) -->
+        <div class="intro-meta">
+          <div class="meta-item">
+            <h3 class="meta-label">Role</h3>
+            <p class="meta-value">{frontmatter.role}</p>
+          </div>
+          <div class="meta-item">
+            <h3 class="meta-label">Contribution</h3>
+            <ul class="meta-services">
+              {frontmatter.contribution.map(item => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <LeadImage
-      src={snapshot.data.leadImage.src}
-      alt={snapshot.data.leadImage.alt}
-    />
+    <!-- Lead Image -->
+    <section class="lead-image">
+      <div class="lead-image-container">
+        <img 
+          src={frontmatter.leadImage.src} 
+          alt={frontmatter.leadImage.alt}
+          class="lead-img"
+        />
+      </div>
+    </section>
 
-    <SectionLabel title="Project Overview" />
-    <Section>
-      <p>{snapshot.data.overview.summary}</p>
-      <ul>
-        {snapshot.data.overview.highlights.map((highlight) => (
-          <li>{highlight}</li>
-        ))}
-      </ul>
-    </Section>
-
-    <SectionLabel title="The Work" />
-    {snapshot.data.work.map((section) => (
-      <>
-        <Section 
-          title={section.sectionTitle}
-          subhead={section.sectionSubhead}
-        >
-          {section.content.split('\n\n').map((paragraph) => (
-            <p class="section-paragraph">{paragraph}</p>
-          ))}
-        </Section>
-        {section.images && <ImageSection images={section.images} />}
-      </>
-    ))}
-
-    <SectionLabel title="Impact and Outcomes" />
-    <ImpactGrid items={snapshot.data.impact} />
-
-    {snapshot.data.nextCaseStudy && (
-      <NextSection 
-        title={snapshot.data.nextCaseStudy.title}
-        href={`/work/${snapshot.data.nextCaseStudy.slug}`}
-      />
-    )}
-
-    <MoreWork items={moreWorkItems} />
-  </main>
+    <!-- Main Content Section -->
+    <main class="main-content">
+      <Content components={{
+        ImageGrid,
+        Image,
+        Section,
+        ImpactOutcomes,
+        ImpactOutcome,
+        NextCaseStudy
+      }} />
+    </main>
+  </article>
 </Layout>
 
 <style>
-  h4 {
-    font-size: var(--fs-lg);
-    color: var(--colors-text-secondary);
-    margin-bottom: var(--space-4);
+  .case-study {
+    font-family: var(--bodyFont);
   }
   
-  .section-paragraph {
-    margin-top: var(--space-0);
+  /* Intro Section */
+  .intro {
+    max-width: 80vw;
+    margin: 0 auto;
+    padding: var(--space-12) 0;
+  }
+  
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--space-6);
+  }
+  
+  .client-name {
+    font-size: var(--fs-3xl);
+    font-weight: 700;
     margin-bottom: var(--space-2);
+    color: var(--colors-text-primary);
   }
   
-  .section-paragraph:last-child {
-    margin-bottom: 0;
+  .subtitle {
+    font-size: var(--fs-xl);
+    color: var(--colors-text-secondary);
+    line-height: 1.4;
   }
-</style> 
+  
+  .intro-meta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  
+  .meta-label {
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--colors-text-tertiary);
+    margin-bottom: var(--space-1);
+  }
+  
+  .meta-value {
+    font-size: var(--fs-sm);
+    color: var(--colors-text-primary);
+  }
+  
+  .meta-services {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .meta-services li {
+    font-size: var(--fs-sm);
+    color: var(--colors-text-primary);
+    padding: 0;
+    margin-bottom: var(--space-1);
+  }
+  
+  .meta-services li::before {
+    display: none;
+  }
+  
+  /* Lead Image */
+  .lead-image {
+    width: 100%;
+    background-color: var(--colors-surface-inverse);
+    padding: var(--space-12) 0;
+  }
+  
+  .lead-image-container {
+    max-width: 80vw;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .lead-img {
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+  }
+  
+  /* Main Content */
+  .main-content {
+    padding: var(--space-8) 0;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 1024px) {
+    .intro {
+      max-width: 90vw;
+    }
+    
+    .lead-image-container {
+      max-width: 90vw;
+    }
+    
+    .intro-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+    
+    .main-content :global(.impact-outcomes) {
+      max-width: 90vw;
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

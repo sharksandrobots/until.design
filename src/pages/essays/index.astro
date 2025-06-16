@@ -1,0 +1,139 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const essays = await getCollection('essays');
+const sortedEssays = essays.sort((a, b) => {
+  if (!a.data.date) return 1;
+  if (!b.data.date) return -1;
+  return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+});
+---
+
+<Layout title="Essays - Mike Bowser">
+	<main class="essays">
+		<div class="content">
+			<header>
+				<h1>Essays</h1>
+				<p class="blurb">Thoughts on design, leadership, and building better products.</p>
+			</header>
+
+			<div class="essays-list">
+				{sortedEssays.map((essay) => (
+					<article class="essay-item">
+						<div class="essay-content">
+							<h2><a href={`/essays/${essay.slug}`}>{essay.data.title}</a></h2>
+							<div class="topics">
+								{essay.data.topics.map((topic) => (
+									<span class="topic">#{topic}</span>
+								))}
+							</div>
+						</div>
+						{essay.data.date && (
+							<time datetime={essay.data.date} class="date">
+								{new Date(essay.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+							</time>
+						)}
+					</article>
+				))}
+			</div>
+		</div>
+	</main>
+</Layout>
+
+<style>
+	.essays {
+		width: 100%;
+		padding: var(--space-4) 0;
+	}
+
+	.content {
+		width: 90vw;
+		max-width: 40rem;
+		margin: 0 auto;
+	}
+
+	header {
+		margin-bottom: var(--space-6);
+	}
+
+	h1 {
+		font-size: var(--h1);
+		font-weight: 500;
+		color: var(--colors-text-primary);
+		margin-bottom: var(--space-2);
+	}
+
+	.blurb {
+		font-size: var(--fs-lg);
+		color: var(--colors-text-secondary);
+		line-height: 1.5;
+	}
+
+	.essays-list {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-4);
+	}
+
+	.essay-item {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: var(--space-4);
+		padding: var(--space-4) 0;
+		border-bottom: 1px solid var(--colors-border-moderate);
+	}
+
+	.essay-item:last-child {
+		border-bottom: none;
+	}
+
+	.essay-content {
+		flex: 1;
+	}
+
+	.essay-content h2 {
+		font-size: var(--h3);
+		font-weight: 500;
+		color: var(--colors-text-primary);
+		margin-bottom: var(--space-2);
+	}
+
+	.essay-content a {
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.essay-content a:hover {
+		color: var(--colors-primary);
+	}
+
+	.topics {
+		display: flex;
+		gap: var(--space-2);
+		flex-wrap: wrap;
+	}
+
+	.topic {
+		font-size: var(--fs-sm);
+		color: var(--colors-text-secondary);
+	}
+
+	.date {
+		font-size: var(--fs-sm);
+		color: var(--colors-text-secondary);
+		white-space: nowrap;
+	}
+
+	@media (max-width: 768px) {
+		.essay-item {
+			flex-direction: column;
+			gap: var(--space-2);
+		}
+
+		.date {
+			order: -1;
+		}
+	}
+</style> 

@@ -1,0 +1,228 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Intro from '../../components/case-study/Intro.astro';
+import Section from '../../components/case-study/Section.astro';
+import ImageSection from '../../components/case-study/ImageSection.astro';
+import NextSection from '../../components/case-study/NextSection.astro';
+import MoreWork from '../../components/case-study/MoreWork.astro';
+import { Image } from 'astro:assets';
+
+// Get all case studies
+const caseStudies = await getCollection('case-studies');
+
+// Get the current case study based on the URL parameter
+const { slug } = Astro.params;
+const caseStudy = caseStudies.find(cs => cs.slug === slug);
+
+// If no case study is found, redirect to 404
+if (!caseStudy) {
+  return Astro.redirect('/404');
+}
+
+// Get the next case study for navigation
+const currentIndex = caseStudies.findIndex(cs => cs.slug === slug);
+const nextCaseStudy = caseStudies[(currentIndex + 1) % caseStudies.length];
+
+// Get more work items (excluding current and next)
+const moreWork = caseStudies
+  .filter(cs => cs.slug !== slug && cs.slug !== nextCaseStudy.slug)
+  .slice(0, 3)
+  .map(cs => ({
+    title: cs.data.title,
+    subtitle: cs.data.subtitle,
+    slug: cs.slug,
+    image: cs.data.leadImage
+  }));
+
+// Process the MDX content
+const sections = caseStudy.body.split(/(?=# )/);
+const processedSections = sections.map(section => {
+  const titleMatch = section.match(/^# (.*?)\n/);
+  const title = titleMatch ? titleMatch[1] : '';
+  const content = section.replace(/^# .*?\n/, '').trim();
+  
+  // Extract images from this section
+  const imageRegex = /!\[(.*?)\]\((.*?)\)\s*\n?\*?(.*?)(?:layout:.*?\n?|$)/g;
+  const images = [];
+  let match;
+  
+  while ((match = imageRegex.exec(content)) !== null) {
+    const [_, alt, src, caption] = match;
+    const layoutMatch = caption.match(/layout: (.*?)(?:\n|$)/);
+    const layout = layoutMatch ? layoutMatch[1].trim() as "3-3" | "2-4" | "4-2" | "full" | "5-1" | "1-5" | "2-2-2" : "3-3";
+    const cleanCaption = caption.replace(/layout:.*?\n?/, '').trim();
+    
+    images.push({
+      src,
+      alt,
+      caption: cleanCaption,
+      layout
+    });
+  }
+
+  // Remove image markdown from content
+  const cleanContent = content.replace(/!\[.*?\]\(.*?\)\s*\n?\*?.*?(?:layout:.*?\n?|$)/g, '').trim();
+
+  return {
+    title,
+    content: cleanContent,
+    images
+  };
+});
+
+// Group sections by title
+const overviewSection = processedSections.find(s => s.title === 'Overview');
+const contextSection = processedSections.find(s => s.title === 'Context');
+const workSection = processedSections.find(s => s.title === 'The Work');
+const impactSection = processedSections.find(s => s.title === 'Impact and Outcomes');
+---
+
+<Layout title={`${caseStudy.data.title} - Mike Bowser`}>
+  <main>
+    <Intro
+      title={caseStudy.data.title}
+      subtitle={caseStudy.data.subtitle}
+      client={caseStudy.data.client}
+      year={caseStudy.data.year}
+      role={caseStudy.data.role}
+      services={caseStudy.data.services}
+      leadImage={caseStudy.data.leadImage}
+    />
+
+    <!-- Overview Section -->
+    {overviewSection && (
+      <>
+        <Section title="Overview">
+          <div class="markdown-content" set:html={overviewSection.content} />
+        </Section>
+        {overviewSection.images.length > 0 && (
+          <ImageSection images={overviewSection.images} />
+        )}
+      </>
+    )}
+
+    <!-- Context Section -->
+    {contextSection && (
+      <>
+        <Section title="Context">
+          <div class="markdown-content" set:html={contextSection.content} />
+        </Section>
+        {contextSection.images.length > 0 && (
+          <ImageSection images={contextSection.images} />
+        )}
+      </>
+    )}
+
+    <!-- The Work Section -->
+    {workSection && (
+      <>
+        <Section title="The Work">
+          <div class="markdown-content" set:html={workSection.content} />
+        </Section>
+        {workSection.images.length > 0 && (
+          <ImageSection images={workSection.images} />
+        )}
+      </>
+    )}
+
+    <!-- Impact Section -->
+    {impactSection && (
+      <>
+        <Section title="Impact and Outcomes">
+          <div class="markdown-content" set:html={impactSection.content} />
+        </Section>
+        {impactSection.images.length > 0 && (
+          <ImageSection images={impactSection.images} />
+        )}
+      </>
+    )}
+
+    {nextCaseStudy && (
+      <NextSection
+        title={nextCaseStudy.data.title}
+        subtitle={nextCaseStudy.data.subtitle}
+        image={nextCaseStudy.data.leadImage}
+        slug={nextCaseStudy.slug}
+      />
+    )}
+
+    <MoreWork items={moreWork} />
+  </main>
+</Layout>
+
+<style>
+  main {
+    padding: var(--space-4) 0;
+  }
+
+  :global(.markdown-content) {
+    font-size: var(--fs-lg);
+    line-height: 1.6;
+  }
+
+  :global(.markdown-content p) {
+    margin-bottom: var(--space-4);
+  }
+
+  :global(.markdown-content h3) {
+    font-size: var(--fs-xl);
+    margin: var(--space-6) 0 var(--space-4);
+  }
+
+  :global(.markdown-content ul) {
+    list-style: disc;
+    margin-left: var(--space-4);
+    margin-bottom: var(--space-4);
+  }
+
+  :global(.markdown-content li) {
+    margin-bottom: var(--space-2);
+  }
+
+  :global(.markdown-content h2) {
+    font-size: var(--fs-2xl);
+    margin: var(--space-8) 0 var(--space-4);
+  }
+
+  :global(.markdown-content h1) {
+    font-size: var(--fs-3xl);
+    margin: var(--space-10) 0 var(--space-6);
+  }
+
+  :global(.markdown-content a) {
+    color: var(--colors-text-primary);
+    text-decoration: underline;
+  }
+
+  :global(.markdown-content blockquote) {
+    border-left: 4px solid var(--colors-text-secondary);
+    padding-left: var(--space-4);
+    margin: var(--space-4) 0;
+    font-style: italic;
+  }
+
+  :global(.markdown-content code) {
+    background: var(--colors-background-secondary);
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-family: monospace;
+  }
+
+  :global(.markdown-content pre) {
+    background: var(--colors-background-secondary);
+    padding: var(--space-4);
+    border-radius: 4px;
+    overflow-x: auto;
+    margin: var(--space-4) 0;
+  }
+
+  :global(.markdown-content pre code) {
+    background: none;
+    padding: 0;
+  }
+
+  :global(.markdown-content img) {
+    display: none; /* Hide images in the content as they'll be handled by ImageSection */
+  }
+</style>

@@ -1,0 +1,24 @@
+---
+// components/ImpactOutcomes.astro
+const { class: className = '' } = Astro.props;
+---
+
+<div class={`impact-outcomes ${className}`}>
+  <slot />
+</div>
+
+<style>
+  .impact-outcomes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+    margin-top: var(--space-6);
+  }
+  
+  @media (max-width: 1024px) {
+    .impact-outcomes {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+  }
+</style>

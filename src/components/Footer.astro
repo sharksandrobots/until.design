@@ -1,20 +1,22 @@
 <footer class="footer-wrapper">
 	<div class="footer">
 		<div class="footer-content">
-			<p class="footer-intro">Mike Bowser is a designer and design director with over two decades of experience building and leading high-performing design teams across organizations of all sizes. His expertise lies in:</p>
+			<p class="footer-intro">Mike Bowser is a designer and design director with over two decades of experience building and leading high-performing design teams across organizations of all sizes. His focus is on:</p>
 			
 			<ul class="footer-expertise">
 				<li>Cultivating cross-functional partnerships that bridge design, engineering, and business objectives</li>
 				<li>Crafting intuitive UX solutions and product designs while building scalable design systems</li>
 				<li>Mentoring teams to embrace human-centered design methodologies that deliver business impact</li>
 			</ul>
-			<p class="footer-cta">To discuss projects, roles, or workshops / training, please feel free to reach out.</p>
+			<p class="footer-cta">To discuss projects, roles, or workshops / training, please email <a href="mailto:mike&#64;until&#46;design">mike&#64;until&#46;design</a></p>
             <p class="footer-copyright">© Copyright 2025 Mike Bowser. All rights reserved.</p>
 		</div>
 		
 		<div class="footer-right">
 			<div class="footer-image">
-				<img src="/img/Mike-Bowser-2025.png" alt="Mike Bowser" />
+				<!-- <img src="/img/Mike-Bowser-2025.png" alt="Mike Bowser" />-->
+				<img src="/img/mike-bowser-home-office.png" alt="Mike Bowser" />
+
 			</div>
 			<nav class="social-nav">
 				<a href="https://linkedin.com/in/mikebowser" target="_blank" rel="noopener noreferrer" class="social-link">
@@ -38,7 +40,7 @@
 				<a href="https://mastodon.social/@mikebowser" target="_blank" rel="noopener noreferrer" class="social-link">
 					<img src="/icons/mastodon.svg" alt="Mastodon" />
 				</a>
-				<a href="https://notthatbowser.com" target="_blank" rel="noopener noreferrer" class="social-link text-link">
+				<a href="https://en.wikipedia.org/wiki/Bowser" target="_blank" rel="noopener noreferrer" class="social-link text-link">
 					Not that Bowser
 				</a>
 			</nav>
@@ -68,8 +70,6 @@
 
 	.footer-content {
 		grid-column: 1 / span 3;
-		display: flex;
-		flex-direction: column;
 		gap: var(--space-4);
 	}
 
@@ -82,9 +82,7 @@
 	.footer-expertise {
 		list-style: none;
 		padding: 0;
-		margin: 0;
-		display: flex;
-		flex-direction: column;
+		margin-bottom: var(--space-2);
 		gap: var(--space-2);
 	}
 
@@ -107,7 +105,17 @@
 		font-size: var(--fs-base);
 		line-height: 1.6;
 		color: var(--footer-text);
-		margin-top: var(--space-1);
+		margin:0;
+	}
+
+	.footer-cta a {
+		color: var(--footer-text);
+		text-decoration: underline;
+	}
+
+	.footer-cta a:hover {
+		color: var(--colors-gray-400);
+		text-decoration: none;
 	}
 
 	.footer-right {
@@ -148,7 +156,7 @@
 	}
 
 	.social-link:hover {
-		color: var(--colors-gray-400);
+		color: var(--colors-gray-200);
 	}
 
 	.social-link:hover img {
@@ -165,6 +173,11 @@
 	.social-link.text-link {
 		width: auto;
 		font-size: var(--fs-sm);
+		text-decoration: underline !important;
+	}
+	.social-link.text-link:hover {
+		color: var(--color-white) !important;
+		text-decoration: none !important;
 	}
 
 	@media (max-width: 768px) {
