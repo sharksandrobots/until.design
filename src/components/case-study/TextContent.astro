@@ -1,0 +1,61 @@
+---
+// components/TextContent.astro
+const { class: className = '' } = Astro.props;
+---
+
+<div class={`text-content ${className}`}>
+  <slot />
+</div>
+
+<style>
+  .text-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: center;
+  }
+  
+  .text-content :global(h3) {
+    font-size: var(--fs-md);
+    font-weight: 600;
+    margin: 0 0 var(--space-3) 0;
+    color: var(--colors-text-primary);
+    line-height: 1.2;
+  }
+  
+  .text-content :global(p) {
+    margin: 0 0 var(--space-3) 0;
+    line-height: 1.6;
+    color: var(--colors-text-primary);
+    font-size: var(--fs-base);
+  }
+  
+  .text-content :global(p:last-child) {
+    margin-bottom: 0;
+  }
+  
+  .text-content :global(ul) {
+    margin: var(--space-2) 0 0 0;
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .text-content :global(li) {
+    position: relative;
+    padding-left: var(--space-4);
+    margin-bottom: var(--space-2);
+    color: var(--colors-text-primary);
+    line-height: 1.5;
+  }
+  
+  .text-content :global(li::before) {
+    content: var(--list-dash);
+    position: absolute;
+    left: 0;
+    color: var(--list-dash-color);
+  }
+  
+  .text-content :global(li:last-child) {
+    margin-bottom: 0;
+  }
+</style>

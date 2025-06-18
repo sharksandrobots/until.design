@@ -1,5 +1,5 @@
 ---
-title: "Test Case Studys"
+title: "Test Case Study"
 subtitle: "Testing all image grid configurations"
 client: "Test Client"
 role: "Lead Designer"
@@ -15,7 +15,7 @@ leadImage:
 
 This is a test case study to make sure our MDX setup is working properly and to test all image grid configurations.
 
-### Highlights
+### Key Points
 - MDX is rendering
 - Components are working
 - Layout looks good
@@ -35,14 +35,14 @@ This is a test case study to make sure our MDX setup is working properly and to 
   />
 </ImageGrid>
 
+<ImageGrid layout="text-left-2-4">
+  <div>TEXT CONTENT HERE</div>
+  <div>IMAGE CONTENT HERE</div>
+</ImageGrid>
+
 <Section type="context" title="Context">
 
 Testing the full-width layout configuration.
-
-### Challenges
-- MDX is rendering
-- Components are working
-- Layout looks good
 
 </Section>
 
@@ -57,9 +57,6 @@ Testing the full-width layout configuration.
 <Section type="work" title="The Work">
 
 ## Testing 2-4 Layout
-
-### This will be our scannable subhead
-
 This should show first image taking 2 columns, second taking 4 columns.
 
 </Section>
@@ -80,7 +77,6 @@ This should show first image taking 2 columns, second taking 4 columns.
 <Section type="work" title="">
 
 ## Testing 4-2 Layout
-### Another scannable subhead
 This should show first image taking 4 columns, second taking 2 columns.
 
 </Section>
@@ -140,27 +136,55 @@ Caption takes 1fr, image takes 5fr.
 
 <Section type="work" title="">
 
-## Testing 2-2-2 Layout
-This should show three images, each taking 2 columns.
+## Testing text-left-2-4 Layout
+Text content on left (1fr), image on right (2fr).
 
 </Section>
 
-<ImageGrid layout="2-2-2">
+<ImageGrid layout="text-left-2-4">
+  <TextContent>
+    ### Research Insights
+    Our user research revealed several key findings that shaped our design decisions:
+    
+    - Users struggled with the complex navigation structure
+    - Loading times were consistently too slow for mobile users
+    - The interface felt cluttered and overwhelming
+    - Key features were buried too deep in the menu hierarchy
+    
+    These insights directly informed our redesign approach.
+  </TextContent>
+  <Image 
+    src="/img/example-1.jpg" 
+    alt="User research findings"
+    caption="Key insights from user interviews and usability testing"
+  />
+</ImageGrid>
+
+<Section type="work" title="">
+
+## Testing text-right-4-2 Layout
+Image on left (2fr), text content on right (1fr).
+
+</Section>
+
+<ImageGrid layout="text-right-4-2">
   <Image 
     src="/img/example-3.jpg" 
-    alt="2-2-2 Layout test 1"
-    caption="2-2-2 Layout: Image 1 (2 columns)"
+    alt="Design process wireframes"
+    caption="Early wireframes exploring different layout approaches"
   />
-  <Image 
-    src="/img/example-4.jpg" 
-    alt="2-2-2 Layout test 2"
-    caption="2-2-2 Layout: Image 2 (2 columns)"
-  />
-  <Image 
-    src="/img/example-5.jpg" 
-    alt="2-2-2 Layout test 3"
-    caption="2-2-2 Layout: Image 3 (2 columns)"
-  />
+  <TextContent>
+    ### Design Process
+    We started with low-fidelity wireframes to explore different approaches to the information architecture problem.
+    
+    The process involved:
+    - Sketching initial concepts
+    - Creating digital wireframes
+    - Testing with users
+    - Iterating based on feedback
+    
+    This iterative approach allowed us to validate our ideas early and often.
+  </TextContent>
 </ImageGrid>
 
 <Section type="impact" title="Impact and Outcomes">

@@ -2,7 +2,7 @@
 title: "About Mike Bowser"
 ---
 
-# Bridging purpose, UX, and code for meaningful product outcomes
+# Connecting purpose, design, and code for meaningful product outcomes
 
 Hi, I'm Mike—a designer and design leader who **builds human-centered systems, interfaces, and tools** through intuitive UX and collaborative AI approaches. With over two decades of experience, **I use creative problem solving and technology to deliver thoughtful, outcome-driven work**—grounded in business objectives and technical realities.
 
@@ -10,7 +10,7 @@ I design experiences that help users of all skill levels get things done—makin
 
 <figure>
   <img src="/img/mike-in-iceland.png" alt="Design process in action" />
-  <figcaption>Focusing on some ice in Iceland</figcaption>
+  <figcaption>Skaftafell National Park, Iceland</figcaption>
 </figure>
 
 ## Where I've been
@@ -29,11 +29,11 @@ Throughout it all, I've maintained a heavy focus on UX, design systems, and brid
 <figure class="two-images">
 <div>
   <img src="/img/Kyoto.jpeg" alt="Kyoto Japan" />
-  <figcaption>Finding inspiration in Kyoto</figcaption>
+  <figcaption>Kyoto, Japan</figcaption>
 </div>
 <div>
    <img src="/img/mb-headshot-22-Edit.jpg" alt="Mike Bowser" />
-  <figcaption>Finding some quiet time in my backyard</figcaption>
+  <figcaption>Backyard, The Garden State</figcaption>
 </div>
 </figure>
 
@@ -66,7 +66,7 @@ My approach to design and leadership is built on a few core tenets that guide ev
 
 ## Teaching and mentoring
 
-I've had the chance to both teach and learn from emerging designers. As an Adjunct Professor at Parsons, I created their first Design Systems curriculum and help students understand how design and technology work together in practice.
+I've had the chance to both teach and learn from emerging designers. As an Adjunct Professor at Parsons, **I created their first Design Systems curriculum** and help students understand how design and technology work together in practice.
 
 <figure class="three-images">
 <div>
@@ -85,16 +85,16 @@ I've had the chance to both teach and learn from emerging designers. As an Adjun
 
 
 
-I also lead the local Interaction Design Foundation chapter in Jersey City, building community and facilitating knowledge sharing across the region. Whether through formal teaching or daily collaboration, I love helping designers grow their strategic thinking and build confidence in their decisions.
+**I also lead the local Interaction Design Foundation chapter in Jersey City**, building community and facilitating knowledge sharing across the region. Whether through formal teaching or daily collaboration, I love helping designers grow their strategic thinking and build confidence in their decisions.
 
-As a team leader, I function more like a player-coach—building community and design-focused culture by leveraging individual strengths and keeping things light enough that people actually want to work together.
+As a team leader, **I function more like a player-coach**—building community and design-focused culture by leveraging individual strengths and keeping things light enough that people actually want to work together.
 
 ## Outside of Work
 I live in the NYC area with my wife and twin kids. I love traveling and experiencing new places—sometimes that's walking around in the woods (hiking), wandering through cities, or the occasional fruitful search for new and interesting local spots.
 
 <figure>
   <img src="/img/family-in-iceland.png" alt="Family in Iceland" />
-  <figcaption>Checking out Reynisfjara</figcaption>
+  <figcaption>Reynisfjara, Iceland</figcaption>
 </figure>
 
 Photography has been a reliable and consistent creative outlet for me for a long time. I tend to take many more photos when I travel vs exploring locally, but both can be rewarding. I mostly use a Fujifilm X-T3 and probably need to updagrade that soon but it's an incredibly capable camera.  

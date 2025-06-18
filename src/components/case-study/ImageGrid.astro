@@ -1,6 +1,18 @@
 ---
 // components/ImageGrid.astro
 const { layout, class: className = '' } = Astro.props;
+
+// Add validation for layout types
+const validLayouts = [
+  '3-3', '2-4', '4-2', 'full', '5-1', '1-5', '2-2-2', 
+  'text-left-2-4', 'text-right-4-2'
+];
+
+if (!validLayouts.includes(layout)) {
+  console.warn(`Invalid layout: ${layout}. Using default '3-3'.`);
+}
+
+console.log('Layout received:', layout);
 ---
 
 <section class="image-section">
@@ -13,7 +25,7 @@ const { layout, class: className = '' } = Astro.props;
   .image-section {
     max-width: 80vw;
     margin: 0 auto;
-    padding: 0 0 var(--space-4) 0 !important;
+    padding: var(--space-6) 0;
   }
   
   .image-grid {
@@ -54,10 +66,22 @@ const { layout, class: className = '' } = Astro.props;
   .image-grid[data-layout="2-4"] {
     grid-template-columns: 1fr 2fr;
   }
+
+   /* NEW: text-left-2-4: Text content 1fr left, image 2fr right */
+   .image-grid[data-layout="text-left-2-4"] {
+    grid-template-columns: 1fr 2fr;
+    align-items: center;
+  }
   
   /* 4-2: First image 4 cols, second image 2 cols */
   .image-grid[data-layout="4-2"] {
     grid-template-columns: 2fr 1fr;
+  }
+
+  /* NEW: text-right-4-2: Image 2fr left, text content 1fr right */
+  .image-grid[data-layout="text-right-4-2"] {
+    grid-template-columns: 2fr 1fr;
+    align-items: center;
   }
   
   /* full: Single image spanning all 6 columns */
@@ -95,7 +119,7 @@ const { layout, class: className = '' } = Astro.props;
   
   .image-grid[data-layout="5-1"] :global(.image-item:last-child figcaption) {
     margin-top: 0;
-    font-size: var(--fs-sm);
+    font-size: var(--fs-base);
   }
   
   /* Special handling for 1-5 layout */
@@ -111,7 +135,7 @@ const { layout, class: className = '' } = Astro.props;
   
   .image-grid[data-layout="1-5"] :global(.image-item:first-child figcaption) {
     margin-top: 0;
-    font-size: var(--fs-sm);
+    font-size: var(--fs-base);
   }
   
   @media (max-width: 1024px) {
@@ -119,8 +143,21 @@ const { layout, class: className = '' } = Astro.props;
       max-width: 90vw;
     }
     
-    .image-grid {
+    /* Only override image-only layouts on mobile, not text layouts */
+    .image-grid[data-layout="3-3"],
+    .image-grid[data-layout="2-4"],
+    .image-grid[data-layout="4-2"],
+    .image-grid[data-layout="full"],
+    .image-grid[data-layout="5-1"],
+    .image-grid[data-layout="1-5"],
+    .image-grid[data-layout="2-2-2"] {
       grid-template-columns: 1fr !important;
+    }
+    
+    /* Text layouts stay as-is on mobile since they're already good */
+    .image-grid[data-layout="text-left-2-4"],
+    .image-grid[data-layout="text-right-4-2"] {
+      /* Keep their existing grid layouts */
     }
   }
 </style>

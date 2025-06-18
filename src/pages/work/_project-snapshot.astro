@@ -3,6 +3,7 @@
 import Layout from '../../layouts/Layout.astro';
 import ImageGrid from '../../components/case-study/ImageGrid.astro';
 import Image from '../../components/case-study/Image.astro';
+import TextContent from '../../components/case-study/TextContent.astro';
 import Section from '../../components/case-study/Section.astro';
 import ImpactOutcomes from '../../components/case-study/ImpactOutcomes.astro';
 import ImpactOutcome from '../../components/case-study/ImpactOutcome.astro';
@@ -12,8 +13,9 @@ export interface Props {
   frontmatter: {
     title: string;
     client: string;
-    subtitle: string;
+    blurb: string;
     role: string;
+    focus: string;
     contribution: string[];
     caseType: 'Project Snapshot';
     projectType: string[];
@@ -35,9 +37,9 @@ const { frontmatter, Content } = Astro.props;
       <div class="intro-grid">
         <!-- Client and blurb (columns 1-4) -->
         <div class="intro-content">
-          <h5 class="type">{frontmatter.projectType}</h5>
-          <h1 class="client-name">{frontmatter.title}</h1>
-          <p class="subtitle">{frontmatter.subtitle}</p>
+          <h5 class="type">{frontmatter.caseType}</h5>
+          <h1 class="client-name">{frontmatter.client}</h1>
+          <p class="subtitle">{frontmatter.blurb}</p>
         </div>
         
         <!-- Role info (columns 5-6) -->
@@ -74,6 +76,7 @@ const { frontmatter, Content } = Astro.props;
       <Content components={{
         ImageGrid,
         Image,
+        TextContent,
         Section,
         ImpactOutcomes,
         ImpactOutcome,
